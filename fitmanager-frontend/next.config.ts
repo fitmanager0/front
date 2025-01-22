@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
         hostname: "i.imgur.com",
       },
     ],
-  }
+  },
+
 
 };
 
