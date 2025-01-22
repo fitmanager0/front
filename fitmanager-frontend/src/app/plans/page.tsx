@@ -1,16 +1,14 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Instagram, Linkedin, Youtube, Twitter } from "lucide-react"
 
 export default function PlanesPage() {
 	return (
 		<div className="container mx-auto px-4 py-12">
-			{/* Memberships Section */}
+
 			<h1 className="text-4xl font-bold text-center mb-12">Nuestras Membresías</h1>
 
 			<div className="grid md:grid-cols-3 gap-8 mb-16">
-				{/* Basic Plan */}
+
 				<Card className="flex flex-col">
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Basico</h3>
@@ -37,7 +35,6 @@ export default function PlanesPage() {
 					</CardFooter>
 				</Card>
 
-				{/* Pro Plan */}
 				<Card className="flex flex-col">
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Pro</h3>
@@ -162,68 +159,7 @@ export default function PlanesPage() {
 					</Card>
 				</div>
 			</section>
-
-			{/* Footer */}
-			<footer className="grid md:grid-cols-3 gap-8 border-t pt-8">
-				<div>
-					<h4 className="font-semibold mb-4">Información de Contacto</h4>
-					<div className="space-y-2 text-sm">
-						<p>Dirección: Calle Ficticia 123, Ciudad, País</p>
-						<p>Teléfono: +54 123 456 789</p>
-						<p>Email: fitmanager.henry@gmail.com</p>
-					</div>
-					<div className="mt-4">
-						<h5 className="font-semibold mb-2">Horarios de Atención:</h5>
-						<div className="text-sm space-y-1">
-							<p>Lunes a Viernes: 6:00 AM - 10:00 PM</p>
-							<p>Sábados: 8:00 AM - 6:00 PM</p>
-							<p>Domingos: Cerrado</p>
-						</div>
-					</div>
-				</div>
-				<div>
-					<h4 className="font-semibold mb-4">Enlaces Rápidos</h4>
-					<ul className="space-y-2 text-sm">
-						<li>
-							<Link href="/" className="hover:underline">
-								Inicio
-							</Link>
-						</li>
-						<li>
-							<Link href="/planes" className="hover:underline">
-								Planes
-							</Link>
-						</li>
-						<li>
-							<Link href="/sobre-nosotros" className="hover:underline">
-								Sobre Nosotros
-							</Link>
-						</li>
-						<li>
-							<Link href="/contacto" className="hover:underline">
-								Contacto
-							</Link>
-						</li>
-					</ul>
-				</div>
-				<div>
-					<h4 className="font-semibold mb-4">Redes Sociales</h4>
-					<div className="flex space-x-4">
-						<Link href="#" className="hover:text-gray-600">
-							<Twitter className="h-5 w-5" />
-						</Link>
-						<Link href="#" className="hover:text-gray-600">
-							<Instagram className="h-5 w-5" />
-						</Link>
-						<Link href="#" className="hover:text-gray-600">
-							<Youtube className="h-5 w-5" />
-						</Link>
-						<Link href="#" className="hover:text-gray-600">
-							<Linkedin className="h-5 w-5" />
-						</Link>
-					</div>
-				</div>
-			</footer>
+			
 		</div>
 	)
 }

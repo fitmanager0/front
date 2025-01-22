@@ -24,13 +24,13 @@ export default function Home() {
           <div className="font-serif">
             <Link
             className="w-[10rem] text-center m-2 text-black p-2 bg-gray-300 hover:bg-gray-200 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-            href="about-us"
+            href="aboutus"
             >
             ¿Quienes somos?
             </Link>
             <Link
             className="w-[12rem] text-center p-2 mr-4 bg-black text-white hover:bg-gray-950 hover:border-gray-950 transition duration-300 ease rounded-lg border-[1px] border-black"
-            href="/auth/register"
+            href="/login"
             >
             Ingresar
             </Link>
