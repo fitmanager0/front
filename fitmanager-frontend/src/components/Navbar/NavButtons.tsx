@@ -6,20 +6,20 @@ import { usePathname } from "next/navigation";
 export default function NavButtons() {
   const pathname = usePathname();
 
-  if (pathname === "/auth/register") {
+  if (pathname === "/register") {
     return (
       <Link
         className="w-[12rem] text-center p-1 ml-4 bg-gray-300 hover:bg-gray-200 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-        href="/auth/login"
+        href="/login"
       >
         Iniciar Sesión
       </Link>
     );
-  } else if (pathname === "/auth/login") {
+  } else if (pathname === "/login") {
     return (
       <Link
         className="w-[12rem] text-center p-1 ml-4 bg-black text-white hover:bg-gray-800 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-        href="/auth/register"
+        href="/register"
       >
         Registrarse
       </Link>
@@ -30,13 +30,13 @@ export default function NavButtons() {
     <>
       <Link
         className="w-[10rem] text-center p-1 ml-4 bg-gray-300 hover:bg-gray-200 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-        href="/auth/login"
+        href="/login"
       >
         Iniciar Sesión
       </Link>
       <Link
         className="w-[10rem] text-center text-gray-100 p-1 ml-4 bg-black hover:bg-gray-800 rounded-lg border-b-2 border-black"
-        href="/auth/register"
+        href="/register"
       >
         Registrarse
       </Link>
