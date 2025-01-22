@@ -4,11 +4,12 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   return (
+    <footer>
     <div className="bg-gray-100 py-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-8 justify-items-center">
           
-          <div className="flex flex-col items-center sm:items-start">
+          <div className="flex flex-col items-center lg:items-start md:items-center sm:items-center">
             <h1 className="font-bold mt-4 mb-6 text-lg">Información de Contacto</h1>
             <p>Dirección: Calle Falsa 123, Ciudad, País</p>
             <p>Teléfono: +56 (0) 000 000 000</p>
@@ -19,7 +20,7 @@ export default function Footer() {
             <p>Domingo: Cerrado</p>
           </div>
 
-          <div className="flex flex-col items-center sm:items-start">
+          <div className="flex flex-col items-center sm:items-center">
             <h1 className="font-bold mt-4 mb-6 text-lg">Enlaces Rápidos</h1>
             <div className="flex flex-col gap-2">
               <Link className="hover:text-gray-800 hover:ml-1 transition duration-700 ease-in" href="/home">Inicio</Link>
@@ -29,7 +30,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center sm:items-start">
+          <div className="flex flex-col items-center sm:items-center">
             <h1 className="font-bold mt-4 mb-6 text-lg">Redes Sociales</h1>
             <div className="flex space-x-4">
               <Link
@@ -58,5 +59,7 @@ export default function Footer() {
         </div>
       </div>
     </div>
+    </footer>
+
   );
 }
