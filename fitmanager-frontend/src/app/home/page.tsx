@@ -24,7 +24,7 @@ export default function Home() {
           <div className="font-serif">
             <Link
             className="w-[10rem] text-center m-2 text-black p-2 bg-gray-300 hover:bg-gray-200 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-            href="aboutus"
+            href="/aboutus"
             >
             ¿Quienes somos?
             </Link>
