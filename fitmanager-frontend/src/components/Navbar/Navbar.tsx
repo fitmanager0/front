@@ -8,7 +8,9 @@ export default function Navbar() {
   return (
     <div className="flex fixed top-0 z-50 w-full h-[4rem] bg-white text-black pt-2 pb-2 shadow-sm border-b-[1px] border-gray-200">
       <div className="flex justify-center items-center w-2-12 ml-4">
-        <h1 className="text-xl font-bold">FitManager</h1>
+        <Link href={"/home"}>
+        <h1 className="cursor-pointer text-xl font-bold">FitManager</h1>
+        </Link>
       </div>
       <div className="flex w-11/12 justify-end items-center mr-4">
         {navConfig.map((navLink) => {       

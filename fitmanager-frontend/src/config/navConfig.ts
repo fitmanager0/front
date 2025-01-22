@@ -8,25 +8,25 @@ export interface INavConfig {
     {
       id: 1,
       name: "Inicio",
-      href: "/",
+      href: "/home",
       private: false,
     },
     {
       id: 2,
       name: "Planes",
-      href: "/planes",
+      href: "/plans",
       private: false,
     },
     {
       id: 3,
       name: "Sobre Nosotros",
-      href: "/sobre-nosotros",
+      href: "/aboutus",
       private: false,
     },
     {
       id: 4,
       name: "Contacto",
-      href: "/contacto",
+      href: "/contact",
       private: false,
     },
   
