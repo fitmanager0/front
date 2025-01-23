@@ -6,9 +6,9 @@ export default function AboutUsPage() {
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section */}
-			<div className="relative h-[400px] flex items-center justify-center">
+			<div className="relative h-[600px] flex items-center justify-center">
 				<Image
-					src="/"
+					src="/ImagenSobreNosotros.webp"
 					alt="Gym Equipment"
 					fill
 					className="object-cover brightness-50"
@@ -26,7 +26,7 @@ export default function AboutUsPage() {
 					consequat. Duis aute irure.
 				</p>
 				<div className="flex justify-center">
-					<Image src="/" alt="Gym Logo" width={100} height={100} className="opacity-80" />
+					<Image src="/LogoFitManager.png" alt="Gym Logo" width={100} height={100} className="opacity-80" />
 				</div>
 			</section>
 
@@ -40,7 +40,7 @@ export default function AboutUsPage() {
 								Planes de membresía flexibles para adaptarse a tu estilo de vida
 							</h3>
 							<p className="text-gray-600 mb-4">
-								Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very
+								Body text for whatever you&#39;d like to say. Add main takeaway points, quotes, anecdotes, or even a very
 								very short story.
 							</p>
 						</CardContent>
@@ -55,7 +55,7 @@ export default function AboutUsPage() {
 						<CardContent className="pt-6">
 							<h3 className="text-xl font-semibold mb-4">Acceso 24/7 para que nunca tengas excusas</h3>
 							<p className="text-gray-600 mb-4">
-								Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very
+								Body text for whatever you&#39;d like to say. Add main takeaway points, quotes, anecdotes, or even a very
 								very short story.
 							</p>
 						</CardContent>
@@ -72,7 +72,7 @@ export default function AboutUsPage() {
 								Entrenamientos personalizados basados en tus metas específicas
 							</h3>
 							<p className="text-gray-600 mb-4">
-								Body text for whatever you'd like to say. Add main takeaway points, quotes, anecdotes, or even a very
+								Body text for whatever you&#39;d like to say. Add main takeaway points, quotes, anecdotes, or even a very
 								very short story.
 							</p>
 						</CardContent>
