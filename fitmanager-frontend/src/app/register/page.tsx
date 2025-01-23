@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState } from "react";
@@ -14,6 +16,7 @@ const Register: React.FC = () => {
     city: "",
     address: "",
     password: "",
+    id_rol: 1,
     confirmPassword: "",
     birthdate: "",
   });
@@ -42,10 +45,8 @@ const Register: React.FC = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:3000/auth/signup", formData);
-
+      await axios.post("http://localhost:3000/auth/signup", formData);
       Toast.fire({ icon: "success", title: "Registro exitoso. Por favor, inicia sesión." });
-
       router.push("/login");
     } catch (error: any) {
       const errorMessage =
