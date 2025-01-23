@@ -31,13 +31,13 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="flex h-[60rem] bg-[url('/fondo-register-login.jpg')] bg-cover bg-center">
+    <div className="flex h-[80rem] bg-[url('/fondo-register-login.jpg')] bg-cover bg-center mb-20">
       <div
-        className="w-1/2"
+			  className=" hidden md:block w-1/2"
       ></div>
 
 
-      <div className="w-1/2 flex items-start justify-center pt-20">
+      <div className="w-full md:w-1/2 flex items-start justify-center pt-20 md:pt-36">
         <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-4xl font-bold text-gray-800 text-center mb-6">
             Registrarse

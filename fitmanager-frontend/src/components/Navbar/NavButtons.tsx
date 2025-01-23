@@ -8,26 +8,30 @@ export default function NavButtons() {
 
   if (pathname === "/register") {
     return (
-      <Link
-        className="w-[12rem] text-center p-1 ml-4 bg-gray-300 hover:bg-gray-200 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-        href="/login"
-      >
-        Iniciar Sesión
-      </Link>
+		<div className="flex justify-center items-center p-2">
+			<Link
+				className="w-[12rem] text-center p-1 ml-4 bg-gray-300 hover:bg-gray-200 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
+				href="/login"
+			>
+				Iniciar Sesión
+			</Link>
+		</div>
     );
   } else if (pathname === "/login") {
     return (
-      <Link
-        className="w-[12rem] text-center p-1 ml-4 bg-black text-white hover:bg-gray-800 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-        href="/register"
-      >
-        Registrarse
-      </Link>
-    );
+		<div  className="flex justify-center items-center p-2">
+			<Link
+				className="w-[12rem] text-center p-1 ml-4 bg-black text-white hover:bg-gray-800 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
+				href="/register"
+			>
+				Registrarse
+			</Link>
+		</div>
+		);
   }
 
   return (
-    <>
+    <div className="flex justify-center items-center p-2">
       <Link
         className="w-[10rem] text-center p-1 ml-4 bg-gray-300 hover:bg-gray-200 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
         href="/login"
@@ -40,6 +44,6 @@ export default function NavButtons() {
       >
         Registrarse
       </Link>
-    </>
+    </div>
   );
 }
