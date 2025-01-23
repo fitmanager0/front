@@ -1,11 +1,14 @@
 "use client";
+import { useAuth } from "@/context/AuthContext";
+import { ILogin } from "@/interfaces/ILogin";
 import React, { useState } from "react";
 
 const Login: React.FC = () => {
-	const [formData, setFormData] = useState({
-		email: "",
-		password: "",
-	});
+  const { login } = useAuth()
+  const [formData, setFormData] = useState<ILogin>({
+    email: "",
+    password: "",
+  });
 
 	const [error, setError] = useState("");
 
@@ -14,15 +17,15 @@ const Login: React.FC = () => {
 		setFormData({ ...formData, [name]: value });
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!formData.email || !formData.password) {
-			setError("Todos los campos son obligatorios.");
-			return;
-		}
-		setError("");
-		console.log("Datos enviados:", formData);
-	};
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      setError("Todos los campos son obligatorios.");
+      return;
+    }
+    setError("");
+    await login(formData);
+  };
 
 	return (
 		<div className="flex min-h-screen bg-[url('/fondo-register-login.jpg')] bg-cover bg-center">
