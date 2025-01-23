@@ -1,9 +1,13 @@
 "use client";
+
 import React, { useState } from "react";
+import { Toast } from "@/components/Toast/Toast";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     phone: "",
     country: "",
@@ -11,23 +15,43 @@ const Register: React.FC = () => {
     address: "",
     password: "",
     confirmPassword: "",
+    birthdate: "",
   });
 
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+      setError("Todos los campos obligatorios deben completarse.");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError("Las contraseñas no coinciden.");
       return;
     }
+
     setError("");
-    console.log("Datos enviados:", formData);
+
+    try {
+      const response = await axios.post("http://localhost:3000/auth/signup", formData);
+
+      Toast.fire({ icon: "success", title: "Registro exitoso. Por favor, inicia sesión." });
+
+      router.push("/login");
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || "Ocurrió un error al intentar registrarse.";
+      Toast.fire({ icon: "error", title: errorMessage });
+    }
   };
 
   return (
@@ -44,15 +68,15 @@ const Register: React.FC = () => {
           </h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Nombre completo
               </label>
               <input
                 type="text"
-                id="fullName"
-                name="fullName"
+                id="name"
+                name="name"
                 placeholder="Nombre completo"
-                value={formData.fullName}
+                value={formData.name}
                 onChange={handleChange}
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
               />
@@ -67,6 +91,20 @@ const Register: React.FC = () => {
                 name="email"
                 placeholder="Email"
                 value={formData.email}
+                onChange={handleChange}
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="birthdate" className="block text-sm font-medium text-gray-700">
+                Fecha de nacimiento
+              </label>
+              <input
+                type="date"
+                id="birthdate"
+                name="birthdate"
+                placeholder="Fecha de nacimiento"
+                value={formData.birthdate}
                 onChange={handleChange}
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
               />
