@@ -26,7 +26,7 @@ export default function Dashboard() {
   if (user.id_rol === 1 || user.id_rol === 2) {
     return (
       <>
-        <Link href={"/dasboard/user"}>
+        <Link href={"/dashboard/user"}>
           <div className="flex justify-center items-center p-1 hover:bg-gray-100  rounded-lg ml-4 mr-4">
             <FaCircleUser size={26} className="transition duration-300 ease" />
           </div>
@@ -40,5 +40,5 @@ export default function Dashboard() {
     );
   }
 
-  return null; // Si el usuario no cumple las condiciones, no renderiza nada.
+  return null; 
 }

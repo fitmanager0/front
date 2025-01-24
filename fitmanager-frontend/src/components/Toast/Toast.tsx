@@ -10,7 +10,7 @@ export const Toast = Swal.mixin({
     color: 'black',
     iconColor: 'black',
     customClass: {
-        popup: 'animate-fade-in animate-slide-in mt-14 h-16 flex items-center', // Alinea icono y texto y usa espacio entre ellos
+        popup: 'animate-fade-in animate-slide-in mt-14 h-16 flex items-center',
         title: 'text-sm font-thin text-black', 
     },
     didOpen: (toast) => {
