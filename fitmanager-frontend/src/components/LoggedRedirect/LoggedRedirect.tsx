@@ -2,17 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { IUser } from "@/interfaces/IUser";
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const LoggedRedirect = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const user: IUser | null = storedUser ? JSON.parse(storedUser) : null;
+    const token = localStorage.getItem("token");
 
-    if (!user || user?.id_rol === 3) {
+    if (token) {
       router.push("/home");
     } else {
       setIsLoading(false);
@@ -33,4 +31,4 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default LoggedRedirect;
