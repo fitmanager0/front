@@ -3,6 +3,7 @@ import UserInfo from "@/components/UserInfo/UserInfo";
 import { getUsers } from "@/helpers/getUsers";
 import Link from "next/link";
 import { useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 
 export default function Administration() {
   const usersData = getUsers();
@@ -55,6 +56,7 @@ export default function Administration() {
   );
 
   return (
+    <ProtectedRoute>
     <div className="flex flex-col w-full justify-center items-center mt-20">
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
         <div className="w-full md:w-4/12">
@@ -144,5 +146,6 @@ export default function Administration() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
