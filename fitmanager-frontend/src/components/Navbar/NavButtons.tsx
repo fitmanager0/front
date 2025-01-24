@@ -1,11 +1,22 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function NavButtons() {
+  const { isAuthenticated, logout } = useAuth();
   const pathname = usePathname();
-
+  if (isAuthenticated) {
+    return (
+      <button
+				className="w-[12rem] text-center p-1 ml-4 bg-black text-white hover:bg-gray-800 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
+				onClick={logout}
+			>
+				Cerrar Sesión
+			</button>
+    )
+  }
   if (pathname === "/register") {
     return (
 		<div className="flex justify-center items-center p-2">

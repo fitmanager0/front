@@ -1,18 +1,29 @@
-"use client";
 import UserInfo from "@/components/UserInfo/UserInfo";
 import { getUsers } from "@/helpers/getUsers";
+import { IUser } from "@/interfaces/IUser";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Administration() {
-  const usersData = getUsers();
+  
+  const [usersData, setUsersData] = useState<IUser[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [filteredUsers, setFilteredUsers] = useState(usersData);
-
+  const [filteredUsers, setFilteredUsers] = useState<IUser[]>(usersData);
+  
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await getUsers();
+      setUsersData(data);
+      setFilteredUsers(data); 
+    };
+
+    fetchUsers();
+  }, []);
 
   const normalizeText = (text: string) => {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -54,8 +65,8 @@ export default function Administration() {
     startIndex + itemsPerPage
   );
 
-  return (
-    <div className="flex flex-col w-full justify-center items-center mt-20">
+    return (
+<div className="flex flex-col w-full justify-center items-center mt-20">
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
         <div className="w-full md:w-4/12">
           <h1 className="text-xl md:text-2xl font-bold">
@@ -111,16 +122,17 @@ export default function Administration() {
 
         <div className="w-full md:w-10/12 flex flex-col items-center border-[1px] border-gray-200 rounded-lg">
           <div className="grid grid-cols-4 w-full text-center bg-gray-100 border-gray-200 border-b-[1px] py-2">
-            <div className="font-semibold">ID</div>
             <div className="font-semibold">Nombre</div>
+            <div className="font-semibold">Email</div>
             <div className="font-semibold">Estado de la Cuenta</div>
             <div className="font-semibold"></div>
           </div>
           <div className="w-full flex flex-col items-center border-gray-200">
             {currentUsers.map((user) => (
               <UserInfo
-                key={user.id}
-                id={user.id}
+                key={user.id_user}
+                id={user.id_user}
+                email={user.email}
                 name={user.name}
                 active={user.isActive}
               />
@@ -144,5 +156,5 @@ export default function Administration() {
         </div>
       </div>
     </div>
-  );
+    );
 }
