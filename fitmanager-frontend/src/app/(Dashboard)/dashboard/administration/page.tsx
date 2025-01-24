@@ -5,7 +5,6 @@ import { getUsers } from "@/helpers/getUsers";
 import { usePrivate } from "@/hooks/usePrivate";
 import { IUser } from "@/interfaces/IUser";
 import Link from "next/link";
-import { useState } from "react";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 import { useEffect, useState } from "react";
 
