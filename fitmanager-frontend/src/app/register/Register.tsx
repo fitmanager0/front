@@ -15,7 +15,6 @@ const Register: React.FC = () => {
     city: "",
     address: "",
     password: "",
-    id_rol: 1,
     confirmPassword: "",
     birthdate: "",
   });

@@ -1,3 +1,4 @@
+"use client";
 import UserInfo from "@/components/UserInfo/UserInfo";
 import { getUsers } from "@/helpers/getUsers";
 import { IUser } from "@/interfaces/IUser";
