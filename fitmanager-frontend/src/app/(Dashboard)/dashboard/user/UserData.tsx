@@ -1,50 +1,23 @@
 "use client";
-import { getUserInfo } from "@/helpers/getUserInfo";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidError } from "react-icons/bi";
-import { useEffect, useState } from "react";
-import { IFindUserById } from "@/interfaces/IFindUserById";
+import { useAuth } from "@/context/AuthContext";
 
-export default function User({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const [userData, setUserData] = useState<IFindUserById | null>(null);
-  const [loading, setLoading] = useState(true); 
+export default function UserData() {
+  const { user } = useAuth();
 
-  useEffect(() => {
-    const { slug } = params;
-    const userId = slug;
-
-    const fetchUser = async () => {
-      const fetchedUser = await getUserInfo(userId);
-      setUserData(fetchedUser);
-      setLoading(false);
-    };
-
-    fetchUser();
-  }, [params]);
 
   let rol = "";
-  if (userData?.rol === 1) {
+  if (user?.id_rol === 1) {
     rol = "Administrador";
-  } else if (userData?.rol === 2) {
+  } else if (user?.id_rol === 2) {
     rol = "Entrenador";
-  } else if (userData?.rol === 3) {
+  } else if (user?.id_rol === 3) {
     rol = "Socio";
   }
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center w-full mt-24">
-        <h1>Cargando...</h1>
-      </div>
-    );
-  }
-
-  return userData ? (
+  return user ? (
     <div className="flex flex-col w-full justify-center items-center mt-24">
       <div className="flex flex-col w-full items-center justify-between">
         <div className="flex w-10/12 justify-start items-start">
@@ -62,30 +35,30 @@ export default function User({
 
       <div className="w-10/12 flex-col border-[1px] border-gray-200 rounded-lg mb-10 shadow-md">
         <div className="w-full flex flex-col p-2 border-b-[1px] border-gray-200 bg-gray-50">
-          <h1 className="text-xl font-bold text-center">{userData?.name}</h1>
+          <h1 className="text-xl font-bold text-center">{user?.name}</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
           <div className="flex flex-col">
             {[
-              { label: "Nombre", value: userData.name },
+              { label: "Nombre", value: user.name },
               {
                 label: "Estado",
                 value: (
                   <span
                     className={
-                      userData.active
+                      user.isActive
                         ? "text-green-500 font-bold"
                         : "text-red-500 font-bold"
                     }
                   >
-                    {userData.active ? "Activo" : "Inactivo"}
+                    {user.isActive ? "Activo" : "Inactivo"}
                   </span>
                 ),
               },
-              { label: "Teléfono", value: userData.phone },
+              { label: "Teléfono", value: user.phone },
               { label: "Nivel", value: "A definir" },
-              { label: "Email", value: userData.email },
+              { label: "Email", value: user.email },
             ].map(({ label, value }, index) => (
               <div key={index} className="grid grid-cols-2 gap-4">
                 <h1 className="font-bold">{label}:</h1>
@@ -96,13 +69,13 @@ export default function User({
 
           <div className="flex flex-col">
             {[
-              { label: "País", value: userData?.country || "No especificado" },
-              { label: "Ciudad", value: userData?.city || "No especificado" },
-              { label: "Dirección", value: userData?.address || "No especificado" },
+              { label: "País", value: user?.country || "No especificado" },
+              { label: "Ciudad", value: user?.city || "No especificado" },
+              { label: "Dirección", value: user?.address || "No especificado" },
               { label: "Rol", value: rol },
               {
                 label: "Fecha de Alta",
-                value: userData.entry_date,
+                value: user.entry_date,
               },
             ].map(({ label, value }, index) => (
               <div key={index} className="grid grid-cols-2 gap-4">

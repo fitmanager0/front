@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -16,6 +15,7 @@ const Register: React.FC = () => {
     city: "",
     address: "",
     password: "",
+    id_rol: 1,
     confirmPassword: "",
     birthdate: "",
   });
