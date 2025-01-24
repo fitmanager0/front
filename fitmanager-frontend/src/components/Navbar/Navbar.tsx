@@ -5,7 +5,7 @@ import { navConfig } from "@/config/navConfig";
 import Link from "next/link";
 import NavButtons from "./NavButtons";
 import Image from "next/image";
-import Dashboard from "./Dashboard";
+
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,7 +44,6 @@ export default function Navbar() {
               {navLink.name}
             </Link>
           ))}
-          <Dashboard />
           <NavButtons />
         </div>
       </div>
