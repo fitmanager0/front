@@ -5,12 +5,12 @@ import { getUsers } from "@/helpers/getUsers";
 import { usePrivate } from "@/hooks/usePrivate";
 import { IUser } from "@/interfaces/IUser";
 import Link from "next/link";
+import { useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 import { useEffect, useState } from "react";
 
 export default function Administration() {
   const { isLoading } = useAuth();
-
-  usePrivate()
   
   const [usersData, setUsersData] = useState<IUser[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -70,11 +70,9 @@ export default function Administration() {
     startIndex,
     startIndex + itemsPerPage
   );
-  return isLoading ? (
-  <div>
 
-  </div>
-  ) : (
+  return (
+    <ProtectedRoute>
     <div className="flex flex-col w-full justify-center items-center mt-20">
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
         <div className="w-full md:w-4/12">
@@ -165,5 +163,6 @@ export default function Administration() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
