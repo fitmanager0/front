@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function CoachCard({id, name, img, description, email} : ICoach) {
   return (
     <div key={id}>
-        <div className="w-[24rem] h-[12rem] cursor-default border-gray-200 border-2 p-4 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 ease">
+        <div className="w-[24rem] h-[12rem] cursor-default border-gray-200 border-2 p-4 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 ease pb-4">
           <div>
             <h1 className="text-xl font-bold">{name}</h1>
           </div>
@@ -20,10 +20,9 @@ export default function CoachCard({id, name, img, description, email} : ICoach) 
             </div>
             <div className="mt-2 w-full">
               <p className="text-sm font-serif">{description}</p>
-              
             </div>
           </div>
-            <p className="m-2 text-gray-500 text-center">{email}</p>
+            <p className=" text-gray-500 text-center ">{email}</p>
         
         </div>
     </div>
