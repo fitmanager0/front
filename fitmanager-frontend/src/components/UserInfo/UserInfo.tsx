@@ -3,16 +3,18 @@ import Link from "next/link";
 export default function UserInfo({
   id,
   name,
+  email,
   active,
 }: {
-  id: number;
+  id: string;
   name: string;
+  email: string;
   active: boolean;
 }) {
   return (
     <div className="grid grid-cols-4 w-full text-center border-gray-200 border-t-[1px] border-b-[1px] py-2">
-      <div>{id}</div>
       <div>{name}</div>
+      <div>{email}</div>
       <div
         className={
           active ? "text-green-500 font-bold" : "text-red-500 font-bold"

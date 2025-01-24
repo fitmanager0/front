@@ -36,16 +36,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const storedToken = localStorage.getItem("token");
 
     if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser))
-        setToken(storedToken)
-        setIsAuthenticated(true)
+      setUser(JSON.parse(storedUser));
+      setToken(storedToken);
+      setIsAuthenticated(true);
     } else {
-        setUser(null)
-        setToken(null)
-        setIsAuthenticated(false)
+      setUser(null);
+      setToken(null);
+      setIsAuthenticated(false);
     }
     setIsLoading(false);
-}, []);
+  }, []);
 
   const login = async (credentials: ILogin) => {
     try {
@@ -70,10 +70,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    setIsAuthenticated(false)
+    setIsAuthenticated(false);
+    router.push("/home");
   };
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated, isLoading }}>
+    <AuthContext.Provider
+      value={{ user, token, login, logout, isAuthenticated, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );
