@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LogOut } from 'lucide-react';
 
 export default function Dashboard() {
+
 	const { user, isLoading, logout } = useAuth(); 
 	const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
@@ -74,3 +75,4 @@ export default function Dashboard() {
 		</div>
 	);
 }
+
