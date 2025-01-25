@@ -10,11 +10,11 @@ import { ClientOnly } from "../ClientOnly/ClientOnly";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false); // Estado para garantizar que el cliente se haya montado
+  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsClient(true); // Marca que estamos en el cliente
+    setIsClient(true);
   }, []);
 
   const toggleMenu = () => {
@@ -59,6 +59,7 @@ export default function Navbar() {
               }`}
               key={navLink.id}
               href={navLink.href}
+              onClick={isMenuOpen ? () => setIsMenuOpen(false) : undefined}
             >
               {navLink.name}
             </Link>

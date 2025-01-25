@@ -25,7 +25,7 @@ export default function UserData() {
         </div>
       </div>
 
-      <div className="w-8/12 flex-col border-[1px] border-gray-200 rounded-lg mb-10 shadow-md">
+      <div className="w-11/12 md:w-8/12 flex-col border-[1px] border-gray-200 rounded-lg mb-10 shadow-md">
         <div className="w-full flex flex-col p-2 border-b-[1px] border-gray-200 bg-gray-50">
           <h1 className="text-xl font-bold text-center">{user?.name}</h1>
         </div>
@@ -52,7 +52,7 @@ export default function UserData() {
               { label: "Nivel", value: "A definir" },
               { label: "Email", value: user.email },
             ].map(({ label, value }, index) => (
-              <div key={index} className="grid grid-cols-2 gap-4">
+              <div key={index} className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4">
                 <h1 className="font-bold">{label}:</h1>
                 <p>{value}</p>
               </div>
@@ -70,7 +70,7 @@ export default function UserData() {
                 value: user.entry_date,
               },
             ].map(({ label, value }, index) => (
-              <div key={index} className="grid grid-cols-2 gap-4">
+              <div key={index} className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4">
                 <h1 className="font-bold">{label}:</h1>
                 <p>{value instanceof Date ? value.toLocaleDateString() : value}</p>
               </div>
