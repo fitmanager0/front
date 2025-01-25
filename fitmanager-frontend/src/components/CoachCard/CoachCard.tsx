@@ -22,7 +22,7 @@ export default function CoachCard({id, name, img, description, email} : ICoach) 
               <p className="text-sm font-serif">{description}</p>
             </div>
           </div>
-            <p className=" text-gray-500 text-center ">{email}</p>
+            <p className="text-gray-500 text-center">{email}</p>
         
         </div>
     </div>
