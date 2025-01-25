@@ -5,10 +5,11 @@ import { navConfig } from "@/config/navConfig";
 import Link from "next/link";
 import NavButtons from "./NavButtons";
 import Image from "next/image";
-
+import { usePathname } from "next/navigation"; 
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -37,7 +38,11 @@ export default function Navbar() {
         >
           {navConfig.map((navLink) => (
             <Link
-              className="block p-2 pr-2 pl-2 ml-4 hover:bg-gray-100 transition duration-300 ease rounded-lg text-center "
+              className={`block p-2 pr-2 pl-2 ml-4 transition duration-300 ease rounded-lg text-center ${
+                pathname === navLink.href ?
+                "bg-gray-100" :
+                "hover:bg-gray-100"
+              }`}
               key={navLink.id}
               href={navLink.href}
             >
