@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react"; // Importar useEffect y useRef
+import { useState, useEffect, useRef } from "react";
 import { FaCircleUser } from "react-icons/fa6";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
@@ -8,20 +8,18 @@ import { LogOut } from 'lucide-react';
 export default function Dashboard() {
 	const { user, isLoading, logout } = useAuth();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const menuRef = useRef<HTMLDivElement>(null); // Referencia al menú desplegable
-	// Efecto para detectar clics fuera del menú
+	const menuRef = useRef<HTMLDivElement>(null);
+
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
-			// Verificar si el clic fue fuera del menú
+
 			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-				setIsMenuOpen(false); // Cerrar el menú
+				setIsMenuOpen(false);
 			}
 		};
 
-		// Agregar el event listener al document
 		document.addEventListener("mousedown", handleClickOutside);
 
-		// Limpiar el event listener al desmontar el componente
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
@@ -35,24 +33,20 @@ export default function Dashboard() {
 		return null;
 	}
 
-	// Función para alternar la visibilidad del menú
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 
-	// Función para cerrar sesión
 	const handleLogout = () => {
 		logout();
-		setIsMenuOpen(false); // Cerrar el menú después de cerrar sesión
+		setIsMenuOpen(false);
 	};
 
 	
 
 	return (
-		<div className="flex items-center">
-			{/* Contenedor relativo para el ícono de usuario y el menú desplegable */}
+		<div className="flex items-center justify-center">
 			<div className="relative" ref={menuRef}>
-				{/* Ícono de usuario con menú desplegable */}
 				<div
 					className="flex justify-center items-center p-1 hover:bg-gray-100 rounded-lg ml-4 mr-4 cursor-pointer"
 					onClick={toggleMenu}
@@ -60,17 +54,18 @@ export default function Dashboard() {
 					<FaCircleUser size={26} className="transition duration-300 ease" />
 				</div>
 
-				{/* Menú desplegable */}
 				{isMenuOpen && (
 					<div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
 						{(user.id_rol === 1 || user.id_rol === 2) && (
-							<Link href="/dashboard/administration">
+							<Link href="/dashboard/administration"
+							onClick={() => setIsMenuOpen(false)}>
 								<div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
 									Administración
 								</div>
 							</Link>
 						)}
-						<Link href="/dashboard/user">
+						<Link href="/dashboard/user"
+						onClick={() => setIsMenuOpen(false)}>
 							<div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
 								Mi Perfil
 							</div>
