@@ -19,21 +19,13 @@ export default function UserData() {
 
   return user ? (
     <div className="flex flex-col w-full justify-center items-center mt-24">
-      <div className="flex flex-col w-full items-center justify-between">
-        <div className="flex w-10/12 justify-start items-start">
-          <Link
-            className="border-[1px] p-1 border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300 ease"
-            href="/dashboard/administration"
-          >
-            <IoIosArrowBack size={25} />
-          </Link>
-        </div>
+      <div className="flex flex-col items-center justify-between">
         <div className="flex justify-center items-center w-full">
           <h1 className="text-2xl font-bold mb-6">Información del Usuario</h1>
         </div>
       </div>
 
-      <div className="w-10/12 flex-col border-[1px] border-gray-200 rounded-lg mb-10 shadow-md">
+      <div className="w-11/12 md:w-8/12 flex-col border-[1px] border-gray-200 rounded-lg mb-10 shadow-md">
         <div className="w-full flex flex-col p-2 border-b-[1px] border-gray-200 bg-gray-50">
           <h1 className="text-xl font-bold text-center">{user?.name}</h1>
         </div>
@@ -60,7 +52,7 @@ export default function UserData() {
               { label: "Nivel", value: "A definir" },
               { label: "Email", value: user.email },
             ].map(({ label, value }, index) => (
-              <div key={index} className="grid grid-cols-2 gap-4">
+              <div key={index} className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4">
                 <h1 className="font-bold">{label}:</h1>
                 <p>{value}</p>
               </div>
@@ -78,7 +70,7 @@ export default function UserData() {
                 value: user.entry_date,
               },
             ].map(({ label, value }, index) => (
-              <div key={index} className="grid grid-cols-2 gap-4">
+              <div key={index} className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4">
                 <h1 className="font-bold">{label}:</h1>
                 <p>{value instanceof Date ? value.toLocaleDateString() : value}</p>
               </div>

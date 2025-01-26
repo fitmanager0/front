@@ -3,21 +3,19 @@
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Dashboard from "./Dashboard";
 
 export default function NavButtons() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
   const pathname = usePathname();
   if (isAuthenticated) {
     return (
-      <button
-				className="w-[12rem] text-center p-1 ml-4 bg-black text-white hover:bg-gray-800 transition duration-300 ease rounded-lg border-[1px] border-gray-400"
-				onClick={logout}
-			>
-				Cerrar Sesión
-			</button>
+			<>
+			<Dashboard />
+			</>
     )
   }
-  if (pathname === "/register") {
+  if (!isAuthenticated && pathname === "/register") {
     return (
 		<div className="flex justify-center items-center p-2">
 			<Link
@@ -28,7 +26,7 @@ export default function NavButtons() {
 			</Link>
 		</div>
     );
-  } else if (pathname === "/login") {
+  } else if (!isAuthenticated && pathname === "/login") {
     return (
 		<div  className="flex justify-center items-center p-2">
 			<Link
