@@ -13,7 +13,7 @@ export default function Administration() {
   const [statusFilter, setStatusFilter] = useState("Todos los usuarios");
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>(usersData);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Nuevo estado para el menú
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
