@@ -3,82 +3,85 @@ import { useState, useEffect, useRef } from "react";
 import { FaCircleUser } from "react-icons/fa6";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { LogOut } from 'lucide-react';
+import { LogOut } from "lucide-react";
 
 export default function Dashboard() {
-	const { user, isLoading, logout } = useAuth();
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const menuRef = useRef<HTMLDivElement>(null);
+  const { user, isLoading, logout } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
 
-			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-				setIsMenuOpen(false);
-			}
-		};
+    document.addEventListener("mousedown", handleClickOutside);
 
-		document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, []);
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
 
-	if (isLoading) {
-		return <div>Cargando...</div>;
-	}
+  if (!user) {
+    return null;
+  }
 
-	if (!user) {
-		return null;
-	}
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-	const toggleMenu = () => {
-		setIsMenuOpen(!isMenuOpen);
-	};
+  const handleLogout = () => {
+    logout();
+    setIsMenuOpen(false);
+  };
 
-	const handleLogout = () => {
-		logout();
-		setIsMenuOpen(false);
-	};
+  return (
+    <div className="flex items-center justify-center">
+      <div className="relative" ref={menuRef}>
+        <div
+          className="flex justify-center items-center p-1 hover:bg-gray-100 hover:text-cyan-400 rounded-lg ml-4 mr-4 cursor-pointer"
+          onClick={toggleMenu}
+        >
+          <FaCircleUser
+            size={26}
+            className={`${
+              isMenuOpen ? "text-cyan-400" : "text-black"
+            } transition duration-300 ease`}
+          />
+        </div>
 
-	
-
-	return (
-		<div className="flex items-center justify-center">
-			<div className="relative" ref={menuRef}>
-				<div
-					className="flex justify-center items-center p-1 hover:bg-gray-100 rounded-lg ml-4 mr-4 cursor-pointer"
-					onClick={toggleMenu}
-				>
-					<FaCircleUser size={26} className="transition duration-300 ease" />
-				</div>
-
-				{isMenuOpen && (
-					<div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-						{(user.id_rol === 1 || user.id_rol === 2) && (
-							<Link href="/dashboard/administration"
-							onClick={() => setIsMenuOpen(false)}>
-								<div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-									Administración
-								</div>
-							</Link>
-						)}
-						<Link href="/dashboard/user"
-						onClick={() => setIsMenuOpen(false)}>
-							<div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-								Mi Perfil
-							</div>
-						</Link>
-						<button
-							onClick={handleLogout}
-							className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-start items-center gap-2"
-						>
-							Cerrar Sesión <LogOut size={18} />
-						</button>
-					</div>
-				)}
-			</div>
-		</div>
-	);
+        {isMenuOpen && (
+          <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+            {(user.id_rol === 1 || user.id_rol === 2) && (
+              <Link
+                href="/dashboard/administration"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  Administración
+                </div>
+              </Link>
+            )}
+            <Link href="/dashboard/user" onClick={() => setIsMenuOpen(false)}>
+              <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Mi Perfil
+              </div>
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-start items-center gap-2"
+            >
+              Cerrar Sesión <LogOut size={18} />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

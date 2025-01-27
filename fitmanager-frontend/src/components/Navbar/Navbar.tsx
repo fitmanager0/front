@@ -55,7 +55,7 @@ export default function Navbar() {
           {navConfig.map((navLink) => (
             <Link
               className={`block p-2 pr-2 pl-2 ml-4 transition duration-300 ease rounded-lg text-center ${
-                pathname === navLink.href ? "bg-gray-100" : "hover:bg-gray-100"
+                pathname === navLink.href ? "bg-gray-100" : "hover:bg-gray-100 text-black"
               }`}
               key={navLink.id}
               href={navLink.href}
