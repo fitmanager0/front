@@ -6,7 +6,7 @@ export default async function UserPage({
 }: {
   params: { slug: string }; 
 }) {
-  const resolvedParams = await params; 
+  const resolvedParams = params; 
   return (
     <ProtectedRoute>
       <User params={resolvedParams} />
