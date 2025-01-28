@@ -17,15 +17,16 @@ export default function User({
   useEffect(() => {
     const { slug } = params;
     const userId = slug;
-
+  
+    setLoading(false);
     const fetchUser = async () => {
       const fetchedUser = await getUserInfo(userId);
       setUserData(fetchedUser);
-      setLoading(false);
     };
-
+  
     fetchUser();
   }, [params]);
+  
 
   let rol = "";
   if (userData?.rol === 1) {
