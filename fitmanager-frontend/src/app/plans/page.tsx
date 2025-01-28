@@ -13,8 +13,8 @@ export default function PlanesPage() {
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Basico</h3>
 						<div className="text-center">
-							<span className="text-4xl font-bold">$50</span>
-							<span className="text-sm text-gray-500">/mo</span>
+							<span className="text-4xl font-bold">$5000</span>
+							<span className="text-sm text-gray-500">/mes</span>
 						</div>
 					</CardHeader>
 					<CardContent className="flex-grow">
@@ -39,8 +39,8 @@ export default function PlanesPage() {
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Pro</h3>
 						<div className="text-center">
-							<span className="text-4xl font-bold">$75</span>
-							<span className="text-sm text-gray-500">/mo</span>
+							<span className="text-4xl font-bold">$7500</span>
+							<span className="text-sm text-gray-500">/mes</span>
 						</div>
 					</CardHeader>
 					<CardContent className="flex-grow">
@@ -69,8 +69,8 @@ export default function PlanesPage() {
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Avanzado</h3>
 						<div className="text-center">
-							<span className="text-4xl font-bold">$150</span>
-							<span className="text-sm text-gray-500">/mo</span>
+							<span className="text-4xl font-bold">$15000</span>
+							<span className="text-sm text-gray-500">/mes</span>
 						</div>
 					</CardHeader>
 					<CardContent className="flex-grow">
