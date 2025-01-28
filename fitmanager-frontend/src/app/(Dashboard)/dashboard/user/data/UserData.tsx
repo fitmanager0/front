@@ -1,12 +1,10 @@
 "use client";
 import Link from "next/link";
-import { IoIosArrowBack } from "react-icons/io";
-import { BiSolidError } from "react-icons/bi";
+import { BiSolidError, BiEdit } from "react-icons/bi";
 import { useAuth } from "@/context/AuthContext";
 
 export default function UserData() {
   const { user } = useAuth();
-
 
   let rol = "";
   if (user?.id_rol === 1) {
@@ -18,18 +16,20 @@ export default function UserData() {
   }
 
   return user ? (
-    <div className="flex flex-col w-full justify-center items-center mt-24">
-      <div className="flex flex-col items-center justify-between">
-        <div className="flex justify-center items-center w-full">
-          <h1 className="text-2xl font-bold mb-6">Información del Usuario</h1>
+    <div className="flex flex-col w-full justify-center items-center mb-2">
+      <div className="w-full flex items-center justify-between p-4 bg-gray-50 border-b-[1px] border-gray-200">
+        <div className="w-1/3"></div>
+
+        <h1 className="text-xl font-bold text-center w-1/3">{user?.name}</h1>
+
+        <div className="w-1/3 flex justify-end">
+          <Link href="/dashboard/user/data/updatedata">
+            <BiEdit size={24} className="text-gray-500 hover:text-cyan-400 cursor-pointer" />
+          </Link>
         </div>
       </div>
 
-      <div className="w-11/12 md:w-8/12 flex-col border-[1px] border-gray-200 rounded-lg mb-10 shadow-md">
-        <div className="w-full flex flex-col p-2 border-b-[1px] border-gray-200 bg-gray-50">
-          <h1 className="text-xl font-bold text-center">{user?.name}</h1>
-        </div>
-
+      <div className="w-full flex-col rounded-lg mb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
           <div className="flex flex-col">
             {[
@@ -52,7 +52,10 @@ export default function UserData() {
               { label: "Nivel", value: "A definir" },
               { label: "Email", value: user.email },
             ].map(({ label, value }, index) => (
-              <div key={index} className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4">
+              <div
+                key={index}
+                className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4"
+              >
                 <h1 className="font-bold">{label}:</h1>
                 <p>{value}</p>
               </div>
@@ -70,7 +73,10 @@ export default function UserData() {
                 value: user.entry_date,
               },
             ].map(({ label, value }, index) => (
-              <div key={index} className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4">
+              <div
+                key={index}
+                className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4"
+              >
                 <h1 className="font-bold">{label}:</h1>
                 <p>{value instanceof Date ? value.toLocaleDateString() : value}</p>
               </div>
@@ -81,22 +87,12 @@ export default function UserData() {
     </div>
   ) : (
     <div>
-    <div className="flex flex-col w-full justify-center items-center mt-24"></div>
-    <div className="flex w-10/12 justify-start items-start ml-10">
-          <Link
-            className="border-[1px] p-1 border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300 ease"
-            href="/dashboard/administration"
-          >
-            <IoIosArrowBack size={25} />
-          </Link>
+      <div className="flex w-4/12 flex-col border-[1px] justify-center items-center mx-auto border-gray-200 rounded-lg mb-10 shadow-md mt-4">
+        <div className="flex p-4 font-bold">
+          <BiSolidError size={20} />
+          <h1 className="ml-2">Usuario no encontrado</h1>
         </div>
-    <div className="flex w-4/12 flex-col border-[1px] justify-center items-center mx-auto border-gray-200 rounded-lg mb-10 shadow-md mt-4">
-      <div className="flex p-4 font-bold">
-        <BiSolidError size={20} />
-        <h1 className="ml-2">Usuario no encontrado</h1>
       </div>
     </div>
-    </div>
-
   );
 }
