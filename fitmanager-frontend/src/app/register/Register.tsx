@@ -53,7 +53,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/auth/signup", formData);
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, formData);
       Toast.fire({ icon: "success", title: "Registro exitoso." });
       router.push("/login");
     } catch (error: any) {

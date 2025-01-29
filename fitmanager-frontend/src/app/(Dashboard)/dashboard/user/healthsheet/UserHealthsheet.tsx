@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
@@ -24,9 +23,9 @@ export default function UserHealthsheet() {
           const data = await getHealthsheet(user.id_user);
           setHealthsheet(data); 
           setErrorMessage(null);
-        } catch (error: any) {
+        } catch {
           setHealthsheet(null);
-          setErrorMessage(error.message || "No se pudo obtener la ficha médica.");
+          setErrorMessage("Ficha Médica inexistente.");
         }
       }
     };
@@ -48,8 +47,10 @@ export default function UserHealthsheet() {
         <div className="flex flex-col items-center justify-center gap-4 p-4">
           <p className="font-semibold">Ficha médica de <span className="text-cyan-400">{user?.name}</span></p>
           <Link href={healthsheet.urlSheet}
+          target="_blank"
+          rel="noopener noreferrer"
           className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition duration-200">
-          Acceder a la Ficha médica</Link>
+          Acceder a mi Ficha médica</Link>
 
         </div>
       ) : (
