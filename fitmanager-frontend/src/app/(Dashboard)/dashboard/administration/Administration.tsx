@@ -156,7 +156,7 @@ export default function Administration() {
                   <h1 className="text-base md:text-md">Usuarios</h1>
                 </div>
               </Link>
-              <Link href="/administration"
+              <Link href="/dashboard/administration/coaches"
               onClick={() => setIsMenuOpen(false)}>
               
                 <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
