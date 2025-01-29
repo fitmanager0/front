@@ -1,9 +1,14 @@
 import { useState } from "react";
 import * as htmlToImage from "html-to-image";
 import { IHealthsheet } from "@/interfaces/IHealthsheet";
+import axios from "axios";
+import { IUser } from "@/interfaces/IUser";
+import { Toast } from "@/components/Toast/Toast";
+import { useRouter } from "next/navigation";
 
 export default function NewHealthsheet() {
-    console.log();
+  const router = useRouter();
+  const [ok, setOk] = useState(false);
   const [formData, setFormData] = useState<IHealthsheet>({
     name: "",
     age: "",
@@ -11,7 +16,6 @@ export default function NewHealthsheet() {
     emergencyContact: "",
     weight: "",
     height: "",
-    goals: [],
     preExistingDiseases: "",
     surgeries: "",
     allergies: "",
@@ -34,42 +38,55 @@ export default function NewHealthsheet() {
   };
 
 
-  const generateImageAndUpload = () => {
+  const generateImageAndUpload = async () => {
     const formElement = document.getElementById("healthsheet-form");
+    if (!formElement) return;
 
-    if (formElement) {
-      htmlToImage.toPng(formElement, {
+    try {
+      const dataUrl = await htmlToImage.toPng(formElement, {
         style: {
-            width: "100%",
-            height: "auto", 
-            border: "1px solid #ccc",
-            padding: "5px",
-            boxSizing: "content-box",
-          }
-      })
-        .then((dataUrl) => {
-          const imgBlob = dataURItoBlob(dataUrl);
+          width: "100%",
+          height: "auto",
+          border: "1px solid #ccc",
+          padding: "5px",
+          boxSizing: "content-box",
+        },
+      });
 
-          const formData = new FormData();
-          formData.append("file", imgBlob);
-          formData.append("upload_preset", "upload");
-          formData.append("resource_type", "image");
+      const imgBlob = dataURItoBlob(dataUrl);
+      const uploadData = new FormData();
+      uploadData.append("file", imgBlob);
+      uploadData.append("upload_preset", "upload");
+      uploadData.append("resource_type", "image");
 
-          fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`, {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => response.json())
-            .then((result) => {
-              console.log("Imagen subida exitosamente:", result.secure_url);
-            })
-            .catch((error) => {
-              console.error("Error al subir la imagen:", error);
-            });
-        })
-        .catch((error) => {
-          console.error("Error al convertir el formulario a imagen:", error);
-        });
+      const cloudinaryResponse = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
+        uploadData
+      );
+
+      console.log("Imagen subida exitosamente:", cloudinaryResponse.data.secure_url);
+
+      const token = localStorage.getItem("token") || "";
+      const user: IUser = JSON.parse(localStorage.getItem("user") || "{}");
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/healthsheet`,
+        {
+          id_user: user.id_user,
+          urlSheet: cloudinaryResponse.data.secure_url,
+          isTemporary: false,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      Toast.fire({ icon: "success", title: "Ficha Médica creada con éxito." });
+      router.push("/dashboard/user/healthsheet");
+    } catch {
+      Toast.fire({ icon: "error", title: "Error al crear la Ficha Médica." });
     }
   };
 
@@ -140,12 +157,21 @@ export default function NewHealthsheet() {
         </div>
         <hr className="border-gray-200" />
       </form>
-      <div className="flex justify-center mb-4">
+      <div className="flex flex-col items-center justify-center mb-4">
+        <div className="mt-4 flex items-center justify-center">
+        <input type="checkbox" onClick={!ok ? () => setOk(true) : () => setOk(false)} id="ok" name="ok" value="ok" 
+        className="h-4 w-4 rounded border-gray-300 accent-black focus:ring-black checked:bg-black checked:border-black"/>
+        <label htmlFor="ok" className="ml-2 text-sm font-medium text-gray-900">
+          Estoy de acuerdo con la declaración de responsabilidad.
+        </label>
+        </div>
         <button
           onClick={generateImageAndUpload}
-          className="mt-6 bg-blue-500 text-white py-2 px-6 rounded"
+          className={`${!ok ? "w-1/2 opacity-20 cursor-not-allowed mt-6 bg-black text-white py-2 px-6 rounded" : "w-1/2 cursor:pointer mt-6 bg-black text-white py-2 px-6 rounded hover:bg-gray-950 transition duration-200"}`}
+          disabled={!ok}
+          
         >
-          Generar y Subir Imagen
+          Generar Hoja de Salud
         </button>
       </div>
     </div>

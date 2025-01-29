@@ -5,7 +5,6 @@ export interface IHealthsheet {
     emergencyContact: string;
     weight: string;
     height: string;
-    goals: string[];
     preExistingDiseases: string;
     surgeries: string;
     allergies: string;

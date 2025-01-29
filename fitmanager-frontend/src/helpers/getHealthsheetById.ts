@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
-export const getHealthsheet = async (id: string) => {
+export const getHealthsheetById = async (id: string) => {
   try {
     const token = localStorage.getItem("token");
     const response = await axios.get(

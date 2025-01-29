@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (credentials: ILogin) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/signin",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
         credentials
       );
       const { user, token } = response.data;
@@ -65,6 +65,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       Toast.fire({ icon: "error", title: "Usuario o contraseña incorrecta" });
     }
   };
+
   const logout = () => {
     setUser(null);
     setToken(null);
