@@ -9,6 +9,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextType {
   user: IUser | null;
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -17,6 +18,7 @@ interface AuthContextType {
 }
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  setUser: () => {},  
   token: null,
   isAuthenticated: false,
   isLoading: true,
@@ -76,7 +78,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
   return (
     <AuthContext.Provider
-      value={{ user, token, login, logout, isAuthenticated, isLoading }}
+      value={{ user, token, login, logout, setUser, isAuthenticated, isLoading }}
     >
       {children}
     </AuthContext.Provider>
