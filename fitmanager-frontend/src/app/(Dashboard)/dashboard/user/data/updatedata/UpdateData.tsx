@@ -31,7 +31,7 @@ export default function UpdateData() {
     if (user) {
       setFormData({
         name: user.name || "",
-        birthdate: user.birthdate || "",
+        birthdate: user.birthdate || "2000-01-01",
         phone: user.phone || "",
         address: user.address || "",
         city: user.city || "",
@@ -81,6 +81,7 @@ export default function UpdateData() {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            autoComplete='off'
             placeholder="Ingresa tu nombre completo"
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
           />
@@ -110,6 +111,7 @@ export default function UpdateData() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            autoComplete='off'
             placeholder="Ingresa un teléfono"
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
           />
@@ -125,6 +127,7 @@ export default function UpdateData() {
             name="address"
             value={formData.address}
             onChange={handleChange}
+            autoComplete='off'
             placeholder="Ingresa una dirección"
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
           />
@@ -140,6 +143,7 @@ export default function UpdateData() {
             name="city"
             value={formData.city}
             onChange={handleChange}
+            autoComplete='off'
             placeholder="Ingresa una ciudad"
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
           />
@@ -155,6 +159,7 @@ export default function UpdateData() {
             name="country"
             value={formData.country}
             onChange={handleChange}
+            autoComplete="off"
             placeholder="Ingresa un país"
             className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
           />
