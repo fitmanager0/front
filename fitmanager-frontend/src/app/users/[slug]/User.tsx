@@ -4,13 +4,13 @@ import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidError } from "react-icons/bi";
 import { useEffect, useState } from "react";
-import { IFindUserById } from "@/interfaces/IFindUserById";
+import { IUser } from "@/interfaces/IUser";
 import { getHealthsheetById } from "@/helpers/getHealthsheetById";
 import { IHealthsheet } from "@/interfaces/IHealthsheet";
 import { RiHealthBookLine } from "react-icons/ri";
 
 export default function User({ params }: { params: { slug: string } }) {
-  const [userData, setUserData] = useState<IFindUserById | null>(null);
+  const [userData, setUserData] = useState<IUser | null>(null);
   const [healthsheet, setHealthsheet] = useState<IHealthsheet | null>(null);
   const [loading, setLoading] = useState(true);
 
