@@ -23,7 +23,7 @@ export default function NewHealthsheet() {
     chronicPain: "",
     additionalComments: "",
   });
-
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const autoResizeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.target.style.height = 'auto'; 
     e.target.style.height = `${e.target.scrollHeight}px`; 
@@ -31,14 +31,35 @@ export default function NewHealthsheet() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    setErrors((prevErrors) => {
+      const newErrors = { ...prevErrors };
+      if (newErrors[name]) {
+        delete newErrors[name];
+      }
+      return newErrors;
+    });
   };
 
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+    Object.keys(formData).forEach((key) => {
+      if (!formData[key as keyof IHealthsheet]) {
+        newErrors[key] = `Este campo es obligatorio.`;
+      }
+    });
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const generateImageAndUpload = async () => {
+    if (!validateForm()) return;
+
     const formElement = document.getElementById("healthsheet-form");
     if (!formElement) return;
 
@@ -63,8 +84,6 @@ export default function NewHealthsheet() {
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         uploadData
       );
-
-      console.log("Imagen subida exitosamente:", cloudinaryResponse.data.secure_url);
 
       const token = localStorage.getItem("token") || "";
       const user: IUser = JSON.parse(localStorage.getItem("user") || "{}");
@@ -142,6 +161,7 @@ export default function NewHealthsheet() {
                     className="border p-3 w-full rounded"
                   />
                 )}
+                {errors[name] && <div className="text-red-600 text-sm">{errors[name]}</div>}
               </div>
             ))}
           </div>

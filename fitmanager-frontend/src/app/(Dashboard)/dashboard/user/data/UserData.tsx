@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Link from "next/link";
 import { BiSolidError, BiEdit } from "react-icons/bi";
@@ -19,7 +18,7 @@ export default function UserData() {
       };
       fetchData();
     }
-  }, []);
+  }, [user]);
 
   return user ? (
     <div className="flex flex-col w-full justify-center items-center mb-2">
@@ -54,7 +53,7 @@ export default function UserData() {
                   </span>
                 ),
               },
-              { label: "Teléfono", value: userData?.phone },
+              { label: "Teléfono", value: userData?.phone || "No especificado" },
               { label: "Nivel", value: "A definir" },
               { label: "Email", value: userData?.email },
             ].map(({ label, value }, index) => (
