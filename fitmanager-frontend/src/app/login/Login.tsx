@@ -2,6 +2,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { ILogin } from "@/interfaces/ILogin";
 import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 import React, { useState } from "react";
 
 const Login: React.FC = () => {
@@ -103,13 +104,17 @@ const Login: React.FC = () => {
             <div className="mt-4 text-center">
             </div>
           </form>
-		  <button
+          <div className="flex flex-col items-center justify-center">
+
+		        <div
               onClick={handleGoogleLogin}
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="w-full flex justify-center px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition duration-200 cursor-pointer"
             >
-              Iniciar sesión con Google
-            </button>
-		  <p className="text-sm text-gray-700">
+              <FcGoogle size={22} className="mr-2" />
+              <h1>Iniciar sesión con Google</h1>
+            </div>
+              </div>
+		  <p className="mt-4 text-center text-sm text-gray-700">
                 ¿No tienes una cuenta?{" "}
                 <a href="/register" className="text-indigo-600 hover:underline">
                   Regístrate

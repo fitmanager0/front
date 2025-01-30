@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AuthCallback() {
+
   const router = useRouter();
 
   useEffect(() => {
@@ -15,26 +16,30 @@ export default function AuthCallback() {
 
       if (userData) {
         const parsedUser = JSON.parse(decodeURIComponent(userData));
-        console.log("✅ Datos del usuario:", parsedUser);
         
         if (token) {
           localStorage.setItem("token", token);
           localStorage.setItem("user", JSON.stringify(parsedUser)); 
-
-          console.log("✅ Token guardado:", token);
-          console.log("✅ Usuario guardado:", parsedUser); 
+        
 
           router.push("/home"); 
         } else {
-          console.error("❌ No se encontró el token");
+          console.error("No se encontró el token");
           router.push("/login");  
         }
       } else {
-        console.error("❌ No se encontró información de usuario");
+        console.error("No se encontró información de usuario");
         router.push("/login"); 
       }
     }
   }, [router]);
 
-  return <h2>Procesando autenticación...</h2>;
+  return (
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+      <p className="text-gray-600 font-medium">Procesando autenticación...</p>
+    </div>
+  </div>
+  );
 }

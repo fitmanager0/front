@@ -1,10 +1,11 @@
 import MenuUsers from "@/components/MenuUsers/MenuUsers";
-
 import NotLoggedRedirect from "@/components/NotLoggedRedirect/NotLoggedRedirect";
 import UserPayments from "./UserPayments";
+import GoogleProtected from "@/components/GoogleProtected/GoogleProtected";
 
 export default function PaymentsPage() {
   return (
+    <GoogleProtected>
     <NotLoggedRedirect>
       <div>
         <div className="flex flex-col md:flex-row mt-20">
@@ -17,5 +18,7 @@ export default function PaymentsPage() {
         </div>
       </div>
     </NotLoggedRedirect>
+    </GoogleProtected>
+    
   );
 }
