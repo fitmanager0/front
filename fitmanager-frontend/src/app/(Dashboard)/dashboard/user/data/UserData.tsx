@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { BiSolidError, BiEdit } from "react-icons/bi";
+import { TiKeyOutline } from "react-icons/ti";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { IUser } from "@/interfaces/IUser";
@@ -11,7 +12,7 @@ export default function UserData() {
   const [userData, setUserData] = useState<IUser | null>(null);
 
   useEffect(() => {
-    if ( user ) {
+    if (user) {
       const fetchData = async () => {
         const fetchedUser = await getUserProfile(user?.id_user);
         setUserData(fetchedUser);
@@ -25,11 +26,32 @@ export default function UserData() {
       <div className="w-full flex items-center justify-between p-4 bg-gray-50 border-b-[1px] border-gray-200">
         <div className="w-1/3"></div>
 
-        <h1 className="text-xl font-bold text-center w-1/3">{userData?.name}</h1>
+        <h1 className="text-xl font-bold text-center w-1/3">
+          {userData?.name}
+        </h1>
 
-        <div className="w-1/3 flex justify-end">
+        <div className="w-1/3 flex flex-col items-end justify-end">
           <Link href="/dashboard/user/data/updatedata">
-            <BiEdit size={24} className="text-gray-500 hover:text-cyan-400 cursor-pointer" />
+            <div className="w-full flex justify-end">
+              <button className="text-gray-500 group hover:text-cyan-400 cursor-pointer ml-2 flex items-center">
+                Actualizar Información
+                <BiEdit
+                  size={24}
+                  className="text-gray-500 group-hover:text-cyan-400 cursor-pointer ml-2"
+                />
+              </button>
+            </div>
+          </Link>
+          <Link href="/dashboard/user/data/update-password">
+            <div className="w-full flex justify-end">
+              <button className="text-gray-500 group hover:text-cyan-400 cursor-pointer ml-2 flex items-center">
+                Cambiar Contraseña
+                <TiKeyOutline
+                  size={24}
+                  className="text-gray-500 group-hover:text-cyan-400 cursor-pointer ml-2"
+                />
+              </button>
+            </div>
           </Link>
         </div>
       </div>
@@ -53,7 +75,10 @@ export default function UserData() {
                   </span>
                 ),
               },
-              { label: "Teléfono", value: userData?.phone || "No especificado" },
+              {
+                label: "Teléfono",
+                value: userData?.phone || "No especificado",
+              },
               { label: "Nivel", value: "A definir" },
               { label: "Email", value: userData?.email },
             ].map(({ label, value }, index) => (
@@ -71,8 +96,14 @@ export default function UserData() {
             {[
               { label: "País", value: userData?.country || "No especificado" },
               { label: "Ciudad", value: userData?.city || "No especificado" },
-              { label: "Dirección", value: userData?.address || "No especificado" },
-              { label: "Fecha de Nacimiento", value: userData?.birthdate || "No especificado" },
+              {
+                label: "Dirección",
+                value: userData?.address || "No especificado",
+              },
+              {
+                label: "Fecha de Nacimiento",
+                value: userData?.birthdate || "No especificado",
+              },
               {
                 label: "Fecha de Ingreso",
                 value: userData?.entry_date,
@@ -83,7 +114,9 @@ export default function UserData() {
                 className="grid grid-cols-[1fr_2fr] md:grid-cols-2 gap-4"
               >
                 <h1 className="font-bold">{label}:</h1>
-                <p>{value instanceof Date ? value.toLocaleDateString() : value}</p>
+                <p>
+                  {value instanceof Date ? value.toLocaleDateString() : value}
+                </p>
               </div>
             ))}
           </div>

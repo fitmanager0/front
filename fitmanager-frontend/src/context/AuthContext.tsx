@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Toast } from "@/components/Toast/Toast";
@@ -10,6 +11,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 interface AuthContextType {
   user: IUser | null;
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  changePasswordAuth: (password: string) => Promise<boolean | null>;
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -19,6 +21,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   setUser: () => {},  
+  changePasswordAuth: async () => null,
   token: null,
   isAuthenticated: false,
   isLoading: true,
@@ -48,7 +51,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setIsLoading(false);
   }, []);
+  const changePasswordAuth = async (password: string): Promise<boolean | null> => {
+    if (!user) return null;
+  
+    const credentials = { email: user?.email, password };
 
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
+        credentials
+      );
+      return true;
+    } catch {
+      Toast.fire({ icon: "error", title: "Contraseña incorrecta" });
+      return null; 
+    }
+  };
   const login = async (credentials: ILogin) => {
     try {
       const response = await axios.post(
@@ -78,7 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
   return (
     <AuthContext.Provider
-      value={{ user, token, login, logout, setUser, isAuthenticated, isLoading }}
+      value={{ user, token, login, logout, setUser, isAuthenticated, isLoading, changePasswordAuth }}
     >
       {children}
     </AuthContext.Provider>
