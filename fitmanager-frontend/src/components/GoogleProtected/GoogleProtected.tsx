@@ -1,25 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IUser } from "@/interfaces/IUser";
 import { useRouter } from "next/navigation";
 import { Toast } from "../Toast/Toast";
+import { useAuth } from "@/context/AuthContext";
 
 const GoogleProtected = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const user: IUser | null = storedUser ? JSON.parse(storedUser) : null;
-
     if (user?.birthdate === null || user?.phone === "" || user?.address === "" || user?.city === "" || user?.country === "") {
       router.replace("/dashboard/user/data/updatedata");
       Toast.fire({ icon: "error", title: "Completa tus datos para continuar" });
     } else {
       setIsLoading(false);
     }
-  }, [router]);
+  }, [router, user]);
 
   if (isLoading) {
     return (
