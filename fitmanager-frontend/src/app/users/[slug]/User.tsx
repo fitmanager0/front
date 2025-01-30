@@ -107,12 +107,12 @@ export default function User({ params }: { params: { slug: string } }) {
                 value: (
                   <span
                     className={
-                      userData.active
+                      userData.isActive
                         ? "text-green-500 font-bold"
                         : "text-red-500 font-bold"
                     }
                   >
-                    {userData.active ? "Activo" : "Inactivo"}
+                    {userData.isActive ? "Activo" : "Inactivo"}
                   </span>
                 ),
               },

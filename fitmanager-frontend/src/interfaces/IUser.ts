@@ -9,6 +9,7 @@ export interface IUser {
     address: string;
     city: string;
     country: string;
-    active: boolean;
+    isActive: boolean;
+    id_rol: number;
     entry_date: Date;
   }
