@@ -1,16 +1,20 @@
+"use client";
 import UserInfo from "@/components/UserInfo/UserInfo";
 import { getUsers } from "@/helpers/getUsers";
 import { IUser } from "@/interfaces/IUser";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 export default function Administration() {
-  
   const [usersData, setUsersData] = useState<IUser[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("Todos los usuarios");
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>(usersData);
-  
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
@@ -19,7 +23,7 @@ export default function Administration() {
     const fetchUsers = async () => {
       const data = await getUsers();
       setUsersData(data);
-      setFilteredUsers(data); 
+      setFilteredUsers(data);
     };
 
     fetchUsers();
@@ -28,6 +32,7 @@ export default function Administration() {
   const normalizeText = (text: string) => {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchText = e.target.value.toLowerCase();
     setSearchTerm(searchText);
@@ -35,10 +40,16 @@ export default function Administration() {
     setCurrentPage(1);
   };
 
-  const handleStatusFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const filter = e.target.value;
+  const clearSearch = () => {
+    setSearchTerm("");
+    const searchText = "";
+    filterUsers(searchText, statusFilter);
+  };
+
+  const handleStatusFilter = (filter: string) => {
     setStatusFilter(filter);
     filterUsers(searchTerm, filter);
+    setIsDropdownOpen(false);
     setCurrentPage(1);
   };
 
@@ -47,9 +58,9 @@ export default function Administration() {
       const normalizedUserName = normalizeText(user.name.toLowerCase());
       const matchesSearch = normalizedUserName.includes(searchText);
       const matchesActivity =
-        filter === "all" ||
-        (filter === "active" && user.isActive) ||
-        (filter === "inactive" && !user.isActive);
+        filter === "Todos los usuarios" ||
+        (filter === "Activos" && user.isActive) ||
+        (filter === "Inactivos" && !user.isActive);
       return matchesSearch && matchesActivity;
     });
     setFilteredUsers(filtered);
@@ -65,8 +76,8 @@ export default function Administration() {
     startIndex + itemsPerPage
   );
 
-    return (
-<div className="flex flex-col w-full justify-center items-center mt-20">
+  return (
+    <div className="flex flex-col w-full justify-center items-center mt-20">
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
         <div className="w-full md:w-4/12">
           <h1 className="text-xl md:text-2xl font-bold">
@@ -74,54 +85,104 @@ export default function Administration() {
           </h1>
         </div>
         <div className="flex flex-col md:flex-row w-full md:w-6/12 gap-4">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleSearch}
-            className="border-[1px] border-gray-200 rounded-full focus:outline-none hover:border-gray-300 focus:border-gray-400 p-2 w-full"
-            placeholder="Ingresa un nombre"
-          />
-          <select
-            className="border-[1px] border-gray-200 rounded-full focus:outline-none hover:border-gray-300 focus:border-gray-400 p-2 w-full md:w-auto"
-            value={statusFilter}
-            onChange={handleStatusFilter}
-          >
-            <option value="all" disabled>
-              Filtrar
-            </option>
-            <option value="all">Todos los usuarios</option>
-            <option value="active">Activos</option>
-            <option value="inactive">Inactivos</option>
-          </select>
+          <div className="relative w-full">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearch}
+              className="border-[1px] border-gray-200 rounded-full focus:outline-none hover:border-gray-300 focus:border-gray-400 p-2 w-full pr-10"
+              placeholder="Ingresa un nombre"
+            />
+            {searchTerm && (
+              <FaTimes
+                onClick={clearSearch}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 text-lg border-[1px] rounded-full bg-gray-100"
+              />
+            )}
+          </div>
+          <div className="relative w-full md:w-6/12">
+            <div
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className={`flex justify-center items-center border-[1px] border-gray-200 rounded-full p-2 cursor-pointer hover:bg-gray-100 ${
+                isDropdownOpen ? "bg-gray-100" : ""
+              }`}
+            >
+              <span>{statusFilter === "Todos los usuarios" ? "Filtrar" : statusFilter}</span>
+              <FaChevronDown size={10} className={`transform ${isDropdownOpen ? "rotate-180 ml-2" : "ml-2"}`} />
+            </div>
+
+            {isDropdownOpen && (
+              <div className="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50">
+                <div
+                  onClick={() => handleStatusFilter("Todos los usuarios")}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                >
+                  Todos los usuarios
+                </div>
+                <div
+                  onClick={() => handleStatusFilter("Activos")}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                >
+                  Activos
+                </div>
+                <div
+                  onClick={() => handleStatusFilter("Inactivos")}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                >
+                  Inactivos
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
         <div className="w-full md:w-2/12 max-h-fit flex flex-col border-[1px] border-gray-200 rounded-lg">
-          <Link href="/administration">
-            <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 bg-gray-100 transition duration-300 ease cursor-pointer">
-              <h1 className="text-base md:text-lg">Usuarios</h1>
+          <div
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+            className={`flex justify-center md:justify-between items-center p-4 cursor-pointer transition duration-300 ease ${isMenuOpen ? "bg-gray-100" : "hover:bg-gray-100"}`}
+          >
+            <h1 className="text-base md:text-md">Menú</h1>
+            <FaChevronDown size={12} className={`transform ${isMenuOpen ? "rotate-180 ml-2" : "ml-2"}`} />
+          </div>
+
+          {isMenuOpen && (
+            <div>
+              <Link href="/dashboard/administration"
+              onClick={() => setIsMenuOpen(false)}>
+              
+                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
+                  <h1 className="text-base md:text-md">Usuarios</h1>
+                </div>
+              </Link>
+              <Link href="/dashboard/administration/coaches"
+              onClick={() => setIsMenuOpen(false)}>
+              
+                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
+                  <h1 className="text-base md:text-md">Entrenadores</h1>
+                </div>
+              </Link>
+              <Link href="/administration"
+              onClick={() => setIsMenuOpen(false)}>
+              
+                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
+                  <h1 className="text-base md:text-md">Administradores</h1>
+                </div>
+              </Link>
+              <Link href="/administration"
+              onClick={() => setIsMenuOpen(false)}>
+              
+                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
+                  <h1 className="text-base md:text-md">Métricas</h1>
+                </div>
+              </Link>
             </div>
-          </Link>
-          <Link href="/administration">
-            <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-              <h1 className="text-base md:text-lg">Entrenadores</h1>
-            </div>
-          </Link>
-          <Link href="/administration">
-            <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-              <h1 className="text-base md:text-lg">Administradores</h1>
-            </div>
-          </Link>
-          <Link href="/administration">
-            <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-              <h1 className="text-base md:text-lg">Métricas</h1>
-            </div>
-          </Link>
+          )}
         </div>
 
         <div className="w-full md:w-10/12 flex flex-col items-center border-[1px] border-gray-200 rounded-lg">
-          <div className="grid grid-cols-4 w-full text-center bg-gray-100 border-gray-200 border-b-[1px] py-2">
+          <div className="grid md:grid-cols-4 w-full text-center bg-gray-100 border-gray-200 border-b-[1px] py-2">
             <div className="font-semibold">Nombre</div>
             <div className="font-semibold">Email</div>
             <div className="font-semibold">Estado de la Cuenta</div>
@@ -156,5 +217,5 @@ export default function Administration() {
         </div>
       </div>
     </div>
-    );
+  );
 }

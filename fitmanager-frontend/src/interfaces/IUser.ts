@@ -3,11 +3,13 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
-    id_rol: number;
+    rol: number;
+    birthdate: string;
     phone: string;
     address: string;
     city: string;
     country: string;
     isActive: boolean;
+    id_rol: number;
     entry_date: Date;
   }
