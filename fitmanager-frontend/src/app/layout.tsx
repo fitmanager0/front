@@ -32,7 +32,9 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Navbar />
+          <div className="min-h-[100vh]">
           {children}
+          </div>
           <Footer />
         </AuthProvider>
       </body>

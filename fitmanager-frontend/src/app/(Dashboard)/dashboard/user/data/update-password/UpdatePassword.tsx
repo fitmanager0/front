@@ -28,11 +28,6 @@ export default function UpdatePassword() {
     password: "",
     confirmPassword: "",
   });
-  useEffect(() => {
-    if (user?.password === "") {
-      router.push("/dashboard/user/data");
-    }
-  }, [user, router]);
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);

@@ -10,11 +10,11 @@ export default function MenuUsers() {
 
   const linkStyle = (path: string) =>
     `flex items-center gap-4 w-full border-b-[1px] p-4 transition duration-300 ease-in-out cursor-pointer ${
-      pathname === path ? "bg-gray-100 font-semibold text-cyan-400" : "hover:bg-gray-50 text-gray-700"
+      pathname === path ? "bg-gray-100 font-semibold text-blue-500" : "hover:bg-gray-50 text-gray-700"
     }`;
 
   const iconStyle = (isActive: boolean) =>
-    `transition duration-300 ease-in-out ${isActive ? "text-cyan-400" : "text-gray-500"}`;
+    `transition duration-300 ease-in-out ${isActive ? "text-blue-500" : "text-gray-500"}`;
 
   return (
     <div className="w-full max-w-md mx-auto">

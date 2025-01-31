@@ -16,8 +16,8 @@ export async function POST(request: Request) {
                 
 			}
 		],
-		success_url: `${process.env.NEXT_PUBLIC_API_URL}/dashboard/user/payments/success`,
-		cancel_url: `${process.env.NEXT_PUBLIC_API_URL}/dashboard/user/payments/`,
+		success_url: `${process.env.NEXT_PUBLIC_API_URL_FRONT}/dashboard/user/payments/success`,
+		cancel_url: `${process.env.NEXT_PUBLIC_API_URL_FRONT}/dashboard/user/payments/`,
 	})
 	
 	return NextResponse.json({ 
