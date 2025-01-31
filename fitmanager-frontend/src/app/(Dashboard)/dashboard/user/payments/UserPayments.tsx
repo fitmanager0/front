@@ -23,7 +23,7 @@ async function loadPricesByStripe() {
 	  return sortedPrices;
 	} catch (error) {
 	  console.error("Error loading prices:", error);
-	  return []; // Retorna un arreglo vacío en caso de error
+	  return []; 
 	}
   }
   
