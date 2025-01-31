@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import ButtonCheckOutPayment from "@/components/ClientOnly/ButtonCheckOutPayment";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+
+import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 
 // import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 // import axios from "axios";
@@ -27,7 +27,6 @@ async function loadPricesByStripe() {
 	}
   }
   
-
 
 export default async function UserPayments() {
 
@@ -100,67 +99,6 @@ export default async function UserPayments() {
 					</CardFooter>
 				</Card>
 
-				/* <Card className="flex flex-col">
-					<CardHeader>
-						<h3 className="text-xl font-semibold text-center">Pro</h3>
-						<div className="text-center">
-							<span className="text-4xl font-bold">$7500</span>
-							<span className="text-sm text-gray-500">/mes</span>
-						</div>
-					</CardHeader>
-					<CardContent className="flex-grow">
-						<ul className="space-y-2">
-							<li className="flex items-center gap-2">
-								<span>• Acceso al Gimnasio</span>
-							</li>
-							<li className="flex items-center gap-2">
-								<span>• Asistencia Pasiva</span>
-							</li>
-							<li className="flex items-center gap-2">
-								<span>• Registro de avances</span>
-							</li>
-							<li className="flex items-center gap-2">
-								<span>• Plan de entrenamiento</span>
-							</li>
-						</ul>
-					</CardContent>
-					<CardFooter>
-					<Button className="w-full" >Seleccionar</Button>
-					</CardFooter>
-				</Card> */
-
-				/* Advanced Plan */
-				/* <Card className="flex flex-col">
-					<CardHeader>
-						<h3 className="text-xl font-semibold text-center">Avanzado</h3>
-						<div className="text-center">
-							<span className="text-4xl font-bold">$15000</span>
-							<span className="text-sm text-gray-500">/mes</span>
-						</div>
-					</CardHeader>
-					<CardContent className="flex-grow">
-						<ul className="space-y-2">
-							<li className="flex items-center gap-2">
-								<span>• Acceso al Gimnasio</span>
-							</li>
-							<li className="flex items-center gap-2">
-								<span>• Asistencia Activa</span>
-							</li>
-							<li className="flex items-center gap-2">
-								<span>• Registro de avances</span>
-							</li>
-							<li className="flex items-center gap-2">
-								<span>• Plan de entrenamiento</span>
-							</li>
-							<li className="flex items-center gap-2">
-								<span>• Plan dietético</span>
-							</li>
-						</ul>
-					</CardContent>
-					<CardFooter>
-						<Button className="w-full" >Seleccionar</Button>
-					</CardFooter>
-				</Card> */
 					
 				))}
 			</div>
