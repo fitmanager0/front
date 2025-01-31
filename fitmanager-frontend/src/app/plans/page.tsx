@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+
 
 export default function PlanesPage() {
 	return (
@@ -13,7 +13,7 @@ export default function PlanesPage() {
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Basico</h3>
 						<div className="text-center">
-							<span className="text-4xl font-bold">$5000</span>
+							<span className="text-4xl font-bold">$25000</span>
 							<span className="text-sm text-gray-500">/mes</span>
 						</div>
 					</CardHeader>
@@ -31,7 +31,6 @@ export default function PlanesPage() {
 						</ul>
 					</CardContent>
 					<CardFooter>
-						<Button className="w-full">Seleccionar</Button>
 					</CardFooter>
 				</Card>
 
@@ -39,7 +38,7 @@ export default function PlanesPage() {
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Pro</h3>
 						<div className="text-center">
-							<span className="text-4xl font-bold">$7500</span>
+							<span className="text-4xl font-bold">$50000</span>
 							<span className="text-sm text-gray-500">/mes</span>
 						</div>
 					</CardHeader>
@@ -60,7 +59,6 @@ export default function PlanesPage() {
 						</ul>
 					</CardContent>
 					<CardFooter>
-						<Button className="w-full">Seleccionar</Button>
 					</CardFooter>
 				</Card>
 
@@ -69,7 +67,7 @@ export default function PlanesPage() {
 					<CardHeader>
 						<h3 className="text-xl font-semibold text-center">Avanzado</h3>
 						<div className="text-center">
-							<span className="text-4xl font-bold">$15000</span>
+							<span className="text-4xl font-bold">$75000</span>
 							<span className="text-sm text-gray-500">/mes</span>
 						</div>
 					</CardHeader>
@@ -93,7 +91,6 @@ export default function PlanesPage() {
 						</ul>
 					</CardContent>
 					<CardFooter>
-						<Button className="w-full">Seleccionar</Button>
 					</CardFooter>
 				</Card>
 			</div>

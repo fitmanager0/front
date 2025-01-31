@@ -11,13 +11,13 @@ export default async function UserPayments() {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-wrap">
           <Link href="/dashboard/user/payments/mercado-pago">
-            <div className="flex group hover:bg-white cursor-pointer justify-center items-center bg-gray-50 p-4 rounded-lg transition duration-300 shadow-md">
+		  <div className="flex group hover:bg-indigo-50 transition-colors duration-500 ease-in-out cursor-pointer justify-center items-center bg-gray-50 p-4 rounded-xl shadow-md hover:shadow-xl transform hover:scale-105">
               <SiMercadopago size={50} color="blue" />
               <h1 className="text-mg ml-4">Pagar con MercadoPago</h1>
             </div>
           </Link>
           <Link href="/dashboard/user/payments/stripe">
-            <div className="flex group hover:bg-white cursor-pointer justify-center items-center bg-gray-50 p-4 rounded-lg transition duration-300 shadow-md">
+		  <div className="flex group hover:bg-indigo-50 transition-colors duration-500 ease-in-out cursor-pointer justify-center items-center bg-gray-50 p-4 rounded-xl shadow-md hover:shadow-xl transform hover:scale-105">
               <FaStripe size={50} color="blue" />
               <h1 className="text-mg ml-4">Pagar con Stripe</h1>
             </div>
