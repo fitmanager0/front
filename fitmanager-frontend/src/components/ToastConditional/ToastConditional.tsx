@@ -1,17 +1,27 @@
 import Swal from "sweetalert2";
 import "./ToastConditional.css";
 
-const ToastConditional = async (): Promise<boolean> => {
+// Definir un tipo para los mensajes
+interface ToastMessages {
+  title: string;
+  text: string;
+  confirmButtonText: string;
+  cancelButtonText: string;
+}
+
+const ToastConditional = async (
+  messages: ToastMessages
+): Promise<boolean> => {
   const result = await Swal.fire({
-    title: "¿Estás seguro?",
-    text: "¿Deseas actualizar tus datos?",
+    title: messages.title,
+    text: messages.text,
     icon: "warning",
     background: "white",
     color: "#333",
     iconColor: "black",
     showCancelButton: true,
-    confirmButtonText: "Sí, actualizar",
-    cancelButtonText: "Cancelar",
+    confirmButtonText: messages.confirmButtonText,
+    cancelButtonText: messages.cancelButtonText,
     buttonsStyling: false,
     customClass: {
       popup: "swal-container",

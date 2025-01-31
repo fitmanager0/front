@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Toast } from "@/components/Toast/Toast";
+import ToastConditional from "@/components/ToastConditional/ToastConditional";
 import { useAuth } from "@/context/AuthContext";
 import { putUpdatePassword } from "@/helpers/putUpdatePassword";
 import { useRouter } from "next/navigation";
@@ -87,6 +88,15 @@ export default function UpdatePassword() {
       });
       return;
     }
+
+    const messages = {
+      title: "¿Estás seguro?",
+      text: "¿Deseas cambiar tu contraseña?",
+      confirmButtonText: "Sí, cambiar",
+      cancelButtonText: "Cancelar",
+    };
+    const confirmUpdate = await ToastConditional(messages);
+    if (!confirmUpdate) return;
 
     try {
       const response = await putUpdatePassword(user?.id_user, formData);

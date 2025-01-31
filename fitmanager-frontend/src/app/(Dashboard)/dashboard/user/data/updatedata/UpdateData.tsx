@@ -67,8 +67,14 @@ export default function UpdateData() {
     if (Object.keys(validationErrors).length > 0) {
       return;
     }
+    const messages = {
+      title: "¿Estás seguro?",
+      text: "¿Deseas actualizar tus datos?",
+      confirmButtonText: "Sí, actualizar",
+      cancelButtonText: "Cancelar",
+    };
 
-    const confirmUpdate = await ToastConditional();
+    const confirmUpdate = await ToastConditional(messages);
     if (!confirmUpdate) return;
 
     try {
