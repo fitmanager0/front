@@ -141,7 +141,7 @@ export default function UpdatePassword() {
           </button>
         </div>
         <button
-          className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-950 transition duration-300 ease focus:outline-none focus:ring focus:ring-indigo-300"
+          className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition duration-300 ease focus:outline-none focus:ring focus:ring-indigo-300"
           type="submit"
         >
           Aceptar
@@ -197,7 +197,7 @@ export default function UpdatePassword() {
 
         <div className="flex justify-center items-center gap-2">
           <button
-            className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-950 transition duration-300 ease focus:outline-none"
+            className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition duration-300 ease focus:outline-none"
             type="submit"
           >
             Cambiar Contraseña

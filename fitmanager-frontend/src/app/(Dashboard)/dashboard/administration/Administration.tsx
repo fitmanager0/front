@@ -1,8 +1,8 @@
 "use client";
+import MenuAdmin from "@/components/MenuAdmin/MenuAdmin";
 import UserInfo from "@/components/UserInfo/UserInfo";
 import { getUsers } from "@/helpers/getUsers";
 import { IUser } from "@/interfaces/IUser";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
@@ -13,7 +13,6 @@ export default function Administration() {
   const [statusFilter, setStatusFilter] = useState("Todos los usuarios");
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>(usersData);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,8 +21,9 @@ export default function Administration() {
   useEffect(() => {
     const fetchUsers = async () => {
       const data = await getUsers();
-      setUsersData(data);
-      setFilteredUsers(data);
+      const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+      setUsersData(sortedData);
+      setFilteredUsers(sortedData)
     };
 
     fetchUsers();
@@ -62,7 +62,9 @@ export default function Administration() {
         (filter === "Activos" && user.isActive) ||
         (filter === "Inactivos" && !user.isActive);
       return matchesSearch && matchesActivity;
-    });
+    })
+    
+
     setFilteredUsers(filtered);
   };
 
@@ -138,48 +140,7 @@ export default function Administration() {
       </div>
 
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
-        <div className="w-full md:w-2/12 max-h-fit flex flex-col border-[1px] border-gray-200 rounded-lg">
-          <div
-            onClick={() => setIsMenuOpen(!isMenuOpen)} 
-            className={`flex justify-center md:justify-between items-center p-4 cursor-pointer transition duration-300 ease ${isMenuOpen ? "bg-gray-100" : "hover:bg-gray-100"}`}
-          >
-            <h1 className="text-base md:text-md">Menú</h1>
-            <FaChevronDown size={12} className={`transform ${isMenuOpen ? "rotate-180 ml-2" : "ml-2"}`} />
-          </div>
-
-          {isMenuOpen && (
-            <div>
-              <Link href="/dashboard/administration"
-              onClick={() => setIsMenuOpen(false)}>
-              
-                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-                  <h1 className="text-base md:text-md">Usuarios</h1>
-                </div>
-              </Link>
-              <Link href="/dashboard/administration/coaches"
-              onClick={() => setIsMenuOpen(false)}>
-              
-                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-                  <h1 className="text-base md:text-md">Entrenadores</h1>
-                </div>
-              </Link>
-              <Link href="/administration"
-              onClick={() => setIsMenuOpen(false)}>
-              
-                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-                  <h1 className="text-base md:text-md">Administradores</h1>
-                </div>
-              </Link>
-              <Link href="/administration"
-              onClick={() => setIsMenuOpen(false)}>
-              
-                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-                  <h1 className="text-base md:text-md">Métricas</h1>
-                </div>
-              </Link>
-            </div>
-          )}
-        </div>
+        <MenuAdmin />
 
         <div className="w-full md:w-10/12 flex flex-col items-center border-[1px] border-gray-200 rounded-lg">
           <div className="grid md:grid-cols-4 w-full text-center bg-gray-100 border-gray-200 border-b-[1px] py-2">

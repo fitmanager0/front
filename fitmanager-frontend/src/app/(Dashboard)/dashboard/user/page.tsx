@@ -21,7 +21,7 @@ export default function User() {
               Desde aquí puedes acceder a todas las herramientas de gestión de tu cuenta y revisar tus rutinas y progresos.
             </p>
             <div className="flex space-x-4">
-              <Link href={"/dashboard/user/routines"} className="px-6 py-2 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-950 transition duration-200">
+              <Link href={"/dashboard/user/routines"} className="px-6 py-2 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition duration-200">
                 Rutinas
               </Link>
               <Link href={"/dashboard/user/data"} className="px-6 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition duration-200">
