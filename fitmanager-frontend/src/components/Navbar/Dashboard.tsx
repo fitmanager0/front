@@ -45,13 +45,13 @@ export default function Dashboard() {
     <div className="flex items-center justify-center">
       <div className="relative" ref={menuRef}>
         <div
-          className="flex justify-center items-center p-1 hover:bg-gray-100 hover:text-cyan-400 rounded-lg ml-4 mr-4 cursor-pointer"
+          className="flex justify-center items-center p-1 hover:bg-gray-100 hover:text-blue-500 rounded-lg ml-4 mr-4 cursor-pointer"
           onClick={toggleMenu}
         >
           <FaCircleUser
             size={26}
             className={`${
-              isMenuOpen ? "text-cyan-400" : "text-black"
+              isMenuOpen ? "text-blue-500" : "text-black"
             } transition duration-300 ease`}
           />
         </div>

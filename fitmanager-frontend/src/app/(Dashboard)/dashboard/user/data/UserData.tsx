@@ -10,8 +10,11 @@ import { getUserProfile } from "@/helpers/getUserProfile";
 export default function UserData() {
   const { user } = useAuth();
   const [userData, setUserData] = useState<IUser | null>(null);
-
+  const [isGoogleUser, setIsGoogleUser] = useState<boolean>(false);
   useEffect(() => {
+    if (user?.password === "") {
+      setIsGoogleUser(true);
+    }
     if (user) {
       const fetchData = async () => {
         const fetchedUser = await getUserProfile(user?.id_user);
@@ -33,26 +36,28 @@ export default function UserData() {
         <div className="w-1/3 flex flex-col items-end justify-end">
           <Link href="/dashboard/user/data/updatedata">
             <div className="w-full flex justify-end">
-              <button className="text-gray-500 group hover:text-cyan-400 cursor-pointer ml-2 flex items-center">
+              <button className="text-gray-500 group hover:text-blue-500 cursor-pointer ml-2 flex items-center">
                 Actualizar Información
                 <BiEdit
                   size={24}
-                  className="text-gray-500 group-hover:text-cyan-400 cursor-pointer ml-2"
+                  className="text-gray-500 group-hover:text-blue-500 cursor-pointer ml-2"
                 />
               </button>
             </div>
           </Link>
-          <Link href="/dashboard/user/data/update-password">
-            <div className="w-full flex justify-end">
-              <button className="text-gray-500 group hover:text-cyan-400 cursor-pointer ml-2 flex items-center">
-                Cambiar Contraseña
-                <TiKeyOutline
-                  size={24}
-                  className="text-gray-500 group-hover:text-cyan-400 cursor-pointer ml-2"
-                />
-              </button>
-            </div>
-          </Link>
+          {!isGoogleUser && (
+            <Link href="/dashboard/user/data/update-password">
+              <div className="w-full flex justify-end">
+                <button className="text-gray-500 group hover:text-blue-500 cursor-pointer ml-2 flex items-center">
+                  Cambiar Contraseña
+                  <TiKeyOutline
+                    size={24}
+                    className="text-gray-500 group-hover:text-blue-500 cursor-pointer ml-2"
+                  />
+                </button>
+              </div>
+            </Link>
+          )}
         </div>
       </div>
 

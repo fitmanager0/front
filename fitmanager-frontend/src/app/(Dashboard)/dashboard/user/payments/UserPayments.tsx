@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import ButtonCheckOutPayment from "@/components/ClientOnly/ButtonCheckOutPayment";
 import { Button } from "@/components/ui/button";
@@ -10,15 +11,22 @@ import { Stripe } from "stripe";
 
 
 async function loadPricesByStripe() {
-	const stripe = new Stripe(process.env.STRIPE_API_SECRET as string)
-	const prices = await stripe.prices.list();
-	const sortedPrices = prices.data.sort((a, b) => a.unit_amount! - b.unit_amount!);
-
-
-	//console.log(prices);
-
-	return sortedPrices;
-}
+	try {
+	  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+	  const prices = await stripe.prices.list();
+  
+	  if (!prices.data || prices.data.length === 0) {
+		throw new Error("No prices found");
+	  }
+  
+	  const sortedPrices = prices.data.sort((a, b) => a.unit_amount! - b.unit_amount!);
+	  return sortedPrices;
+	} catch (error) {
+	  console.error("Error loading prices:", error);
+	  return []; // Retorna un arreglo vacío en caso de error
+	}
+  }
+  
 
 
 export default async function UserPayments() {

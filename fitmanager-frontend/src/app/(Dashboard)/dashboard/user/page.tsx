@@ -15,7 +15,7 @@ export default function User() {
           <div className="flex flex-col justify-center items-center w-10/12 border-[1px] border-gray rounded-lg m-6 p-6 bg-gradient-to-br from-gray-50 to-gray-100">
             <h1 className="text-3xl font-extrabold text-black mb-4">¡Bienvenido al Panel de Usuario!</h1>
             <h2 className="text-xl font-medium text-gray-700 mb-6">
-              ¡Hola, <span className="text-cyan-400">{user?.name}</span>!
+              ¡Hola, <span className="text-blue-500">{user?.name}</span>!
             </h2>
             <p className="text-center text-gray-600 mb-6">
               Desde aquí puedes acceder a todas las herramientas de gestión de tu cuenta y revisar tus rutinas y progresos.

@@ -45,7 +45,7 @@ export default function UserHealthsheet() {
         </div>
       ) : healthsheet ? (
         <div className="flex flex-col items-center justify-center gap-4 p-4">
-          <p className="font-semibold">Ficha médica de <span className="text-cyan-400">{user?.name}</span></p>
+          <p className="font-semibold">Ficha médica de <span className="text-blue-500">{user?.name}</span></p>
           <Link href={healthsheet.urlSheet}
           target="_blank"
           rel="noopener noreferrer"

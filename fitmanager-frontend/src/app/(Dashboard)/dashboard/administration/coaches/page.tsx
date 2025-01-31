@@ -42,7 +42,7 @@ export default function CoachesPage() {
 						</div>
 						<div className='flex flex-row gap-4'>
 							<Link href={`/dashboard/administration/coaches/${coach.id_rol}`} className='pt-2'>
-							<Eye  className='hover:text-blue-400'/>
+							<Eye  className='hover:text-blue-500'/>
 							</Link>
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>

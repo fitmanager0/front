@@ -87,14 +87,11 @@ export default function User({ params }: { params: { slug: string } }) {
               >
                 <RiHealthBookLine
                   size={24}
-                  className="text-gray-500 hover:text-cyan-400 cursor-pointer"
+                  className="text-gray-500 hover:text-blue-500 cursor-pointer"
                 />
               </Link>
             ) : (
-              <RiHealthBookLine
-                size={24}
-                className="text-gray-500 cursor-not-allowed"
-              />
+              <div className="text-xs text-gray-400 italic">Hoja de salud no disponible</div>
             )}
           </div>
         </div>
