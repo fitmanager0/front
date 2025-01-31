@@ -162,7 +162,7 @@ export default function UpdateData() {
         <div className="col-span-full flex justify-center mt-6">
           <button
             type="submit"
-            className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-950 transition duration-300 ease focus:outline-none focus:ring focus:ring-indigo-300"
+            className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition duration-300 ease focus:outline-none focus:ring focus:ring-indigo-300"
           >
             Actualizar Datos
           </button>

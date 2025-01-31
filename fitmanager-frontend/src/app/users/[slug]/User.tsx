@@ -8,6 +8,7 @@ import { IUser } from "@/interfaces/IUser";
 import { getHealthsheetById } from "@/helpers/getHealthsheetById";
 import { IHealthsheet } from "@/interfaces/IHealthsheet";
 import { RiHealthBookLine } from "react-icons/ri";
+import { CiEdit } from "react-icons/ci";
 
 export default function User({ params }: { params: { slug: string } }) {
   const [userData, setUserData] = useState<IUser | null>(null);
@@ -37,11 +38,11 @@ export default function User({ params }: { params: { slug: string } }) {
   }, [params]);
 
   let rol = "";
-  if (userData?.rol === 1) {
+  if (userData?.id_rol === 1) {
     rol = "Administrador";
-  } else if (userData?.rol === 2) {
+  } else if (userData?.id_rol === 2) {
     rol = "Entrenador";
-  } else if (userData?.rol === 3) {
+  } else if (userData?.id_rol === 3) {
     rol = "Socio";
   }
 
@@ -77,7 +78,7 @@ export default function User({ params }: { params: { slug: string } }) {
             {userData.name}
           </h1>
 
-          <div className="w-1/3 flex justify-end">
+          <div className="w-1/3 flex justify-end items-center">
             {healthsheet?.urlSheet &&
             typeof healthsheet.urlSheet === "string" ? (
               <Link
@@ -93,6 +94,9 @@ export default function User({ params }: { params: { slug: string } }) {
             ) : (
               <div className="text-xs text-gray-400 italic">Hoja de salud no disponible</div>
             )}
+            <Link href={`/users/edit-user/${userData.id_user}`}>
+            <CiEdit size={22} className="text-gray-500 hover:text-blue-500 cursor-pointer ml-4" />
+            </Link>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">

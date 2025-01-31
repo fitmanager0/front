@@ -187,7 +187,7 @@ export default function NewHealthsheet() {
         </div>
         <button
           onClick={generateImageAndUpload}
-          className={`${!ok ? "w-1/2 opacity-20 cursor-not-allowed mt-6 bg-black text-white py-2 px-6 rounded" : "w-1/2 cursor:pointer mt-6 bg-black text-white py-2 px-6 rounded hover:bg-gray-950 transition duration-200"}`}
+          className={`${!ok ? "w-1/2 opacity-20 cursor-not-allowed mt-6 bg-black text-white py-2 px-6 rounded" : "w-1/2 cursor:pointer mt-6 bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition duration-200"}`}
           disabled={!ok}
           
         >
