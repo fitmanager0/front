@@ -82,6 +82,7 @@ export default function UpdateData() {
       Toast.fire({ icon: "success", title: "Datos actualizados con éxito." });
       router.push("/dashboard/user/data");
       setUser(newUserData);
+      localStorage.setItem('user', JSON.stringify(newUserData));
     } catch (error) {
       console.error("Error al actualizar los datos:", error);
     }
