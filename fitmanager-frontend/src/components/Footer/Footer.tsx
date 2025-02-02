@@ -50,7 +50,7 @@ export default function Footer() {
               <Link
                 href="https://twitter.com"
                 target="_blank"
-                className="text-gray-800 hover:text-blue-400"
+                className="text-gray-800 hover:text-blue-500"
               >
                 <FaXTwitter size={30} />
               </Link>
