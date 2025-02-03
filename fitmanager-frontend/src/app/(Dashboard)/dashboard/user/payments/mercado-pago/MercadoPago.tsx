@@ -17,12 +17,12 @@ interface Plan {
 
 const plans: Plan[] = [
   {
-    title: "Básico",
+    title: "Plan Básico",
     price: 25000,
     benefits: ["Acceso al Gimnasio", "Asistencia Pasiva", "Registro de avances"],
   },
   {
-    title: "Pro",
+    title: "Plan Pro",
     price: 50000,
     benefits: [
       "Acceso al Gimnasio",
@@ -32,7 +32,7 @@ const plans: Plan[] = [
     ],
   },
   {
-    title: "Avanzado",
+    title: "Plan Avanzado",
     price: 75000,
     benefits: [
       "Acceso al Gimnasio",
