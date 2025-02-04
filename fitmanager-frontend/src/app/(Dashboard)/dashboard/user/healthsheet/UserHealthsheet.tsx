@@ -41,13 +41,15 @@ export default function UserHealthsheet() {
   const deleteHS = async () => {
     if (!healthsheet) return;
 
-    const messages = {
-      title: "¿Estás seguro que deseas eliminar la Ficha Médica?",
-      text: "Esta acción es permanente y perderás todos los cambios.",
-      confirmButtonText: "<button style='color: red;'>¡Eliminar!</button>",
+
+    const confirmUpdate = await ToastConditional({
+      title: "¿Seguro que quieres eliminar esto?",
+      text: "Esta acción no se puede deshacer",
+      confirmButtonText: "¡Eliminar!",
       cancelButtonText: "Cancelar",
-    };
-    const confirmUpdate = await ToastConditional(messages);
+      confirmButtonColor: "red",
+    });
+
     if (!confirmUpdate) return;
 
     try {

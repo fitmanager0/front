@@ -72,6 +72,7 @@ export default function UpdateData() {
       text: "¿Deseas actualizar tus datos?",
       confirmButtonText: "Sí, actualizar",
       cancelButtonText: "Cancelar",
+      confirmButtonColor: "black", 
     };
 
     const confirmUpdate = await ToastConditional(messages);
