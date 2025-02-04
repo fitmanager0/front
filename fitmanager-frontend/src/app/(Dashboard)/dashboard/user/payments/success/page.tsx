@@ -8,9 +8,9 @@ import Link from "next/link";
 
 export default function SuccessPaymentStripePage() {
 	return (
-		<div className="w-full h-screen flex items-center justify-center">
+		<div className="w-full mt-40 h-auto flex justify-center">
 			<motion.div
-				className="container max-w-2xl  p-6 bg-green-800 rounded-2xl shadow-lg text-center"
+				className="container max-w-2xl  p-6 bg-white border-[1px] border-gray-100 rounded-2xl shadow-2xl text-center"
 				initial={{ opacity: 0, scale: 0.8 }}
 				animate={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.5 }}
@@ -21,15 +21,15 @@ export default function SuccessPaymentStripePage() {
 					transition={{ type: "spring", stiffness: 100 }}
 					className="flex items-center justify-center text-green-200 mb-4"
 				>
-					<CheckCircle size={60} />
+					<CheckCircle size={60} className="text-green-500" />
 				</motion.div>
-				<h1 className="text-2xl text-green-400 font-bold">¡Pago Exitoso!</h1>
-				<p className="text-white mt-2">Tu pago se ha procesado correctamente.</p>
-				<p className="text-gray-300 text-sm mt-1">
+				<h1 className="text-2xl text-green-500 font-bold">¡Pago Exitoso!</h1>
+				<p className="text-black mt-2">Tu pago se ha procesado correctamente.</p>
+				<p className="text-gray-500 text-sm mt-1">
 					Nuestros administradores se pondrán en contacto contigo pronto.
 				</p>
 				<Link href={"/dashboard/user"} >
-				<Button className="mt-4 w-full bg-green-500 hover:bg-green-600">
+				<Button className="mt-4 w-full bg-black hover:bg-black/80 transition duration-300 ease">
 					Volver al panel de usuario
 				</Button>
 				</Link>
