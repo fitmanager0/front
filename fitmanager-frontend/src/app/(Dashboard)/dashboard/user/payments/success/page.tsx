@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
+// // // // // // npm install framer-motion
 export default function SuccessPaymentStripePage() {
 	return (
 		<div className="w-full h-screen flex items-center justify-center">
