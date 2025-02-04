@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { AuthProvider } from "@/context/AuthContext";
+import ChatBot from "@/components/ChatBot/ChatBot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +34,12 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           <div className="min-h-[100vh]">
-          {children}
+            {children}
           </div>
           <Footer />
+          <div className="fixed bottom-4 right-4 z-50">
+            <ChatBot />
+          </div>
         </AuthProvider>
       </body>
     </html>
