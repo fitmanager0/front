@@ -21,7 +21,7 @@ export default function NavButtons() {
     return (
       <div className="flex justify-center items-center p-2">
         <Link
-          className="w-[12rem] text-center p-1 ml-4 bg-white text-black border border-gray-400 hover:bg-gray-200 hover:border-gray-600 transition duration-300 ease-in-out rounded-lg"
+          className="w-[8rem] text-center p-1 ml-4 text-gray-600 hover:text-gray-900 transition duration-300"
           href="/login"
         >
           Iniciar Sesión
@@ -44,13 +44,13 @@ export default function NavButtons() {
   return (
     <div className="flex justify-center items-center p-2">
       <Link
-        className="w-[10rem] text-center p-1 ml-4 bg-white text-black hover:bg-gray-200 hover:border hover:border-gray-400 transition duration-300 ease-in-out rounded-lg"
+                  className="w-[8rem] text-center p-1 ml-4 text-gray-600 hover:text-gray-900 transition duration-300"
         href="/login"
       >
         Iniciar Sesión
       </Link>
       <Link
-        className="w-[10rem] text-center text-white p-1 ml-4 bg-black hover:bg-gray-800 transition duration-300 ease-in-out rounded-lg"
+        className="w-[10rem] text-center text-white p-1 ml-4 bg-black font-medium rounded-lg shadow-md hover:bg-gray-800 transition duration-300"
         href="/register"
       >
         Registrarse
