@@ -43,10 +43,15 @@ export default function UserEditPanel({
       text: "¿Deseas eliminar a este usuario?",
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
+      confirmButtonColor: "black", 
     };
 
 
-    const confirmDelete = await ToastConditional(firstMessage);
+    const confirmDelete = await ToastConditional({      title: "¿Estás seguro?",
+      text: "¿Deseas eliminar a este usuario?",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "black", });
 
       if (!confirmDelete) return;
 
@@ -88,6 +93,7 @@ export default function UserEditPanel({
       text: "¿Deseas cambiar los datos del usuario?",
       confirmButtonText: "Sí, cambiar",
       cancelButtonText: "Cancelar",
+      confirmButtonColor: "black",  
     };
     const token = localStorage.getItem("token");
 

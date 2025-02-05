@@ -1,105 +1,94 @@
 "use client";
-import { getUsers } from "@/helpers/getUsers";
-import { IUser } from "@/interfaces/IUser";
+import { getAllRoutines } from "@/helpers/getAllRoutines";
+import { IRoutines } from "@/interfaces/IRoutines";
 import React, { useEffect, useState } from "react";
-import { Eye, Settings, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import MenuAdmin from "@/components/MenuAdmin/MenuAdmin";
+import { Button } from "@/components/ui/button";
+
 
 export default function CoachesPage() {
-  // const [usersData, setUsersData] = useState<IUser[]>([]);
-  // const [filteredUsers, setFilteredUsers] = useState<IUser[]>(usersData);
-  const [coaches, setCoaches] = useState<IUser[]>([]);
+  const [routines, setRoutines] = useState<IRoutines[]>([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const data = await getUsers();
-      const filteredCoaches = data.filter((user) => user.id_rol === 2);
-      console.log(filteredCoaches);
-      setCoaches(filteredCoaches);
+    const fetchRoutines = async () => {
+      const routinesData = await getAllRoutines();
+      setRoutines(routinesData);
     };
 
-    fetchUsers();
+    fetchRoutines();
   }, []);
+
+  const level1 = routines.filter((routine) => routine.id_level === 1);
+  const level2 = routines.filter((routine) => routine.id_level === 2);
+  const level3 = routines.filter((routine) => routine.id_level === 3);
 
   return (
     <div className="flex flex-col w-full justify-center items-center mt-20">
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
         <div className="w-full md:w-4/12">
-          <h1 className="text-xl md:text-2xl font-bold">
-            Panel Administración
-          </h1>
-        </div>
-		</div>
-        <div className="flex flex-col md:flex-row w-full gap-4 p-4">
-          <MenuAdmin />
-		  <div className="w-full md:w-10/12 flex flex-col items-center border-[1px] border-gray-200 rounded-lg min-h-[60vh]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-            {coaches.map((coach) => (
-              <div
-                key={coach.id_user}
-                className="p-4 border rounded-lg shadow-sm flex justify-between"
-              >
-                <div>
-                  <h2 className="text-lg font-semibold">{coach.name}</h2>
-                  <p className="text-gray-600">Email: {coach.email}</p>
-                  <p className="text-gray-600">Telefono: {coach.phone}</p>
-                  <p className="text-gray-600">
-                    Estado de la Cuenta:{" "}
-                    <span
-                      className={
-                        coach.isActive ? "text-green-500" : "text-red-500"
-                      }
-                    >
-                      {coach.isActive ? "Activo" : "Inactivo"}
-                    </span>
-                  </p>
-                </div>
-                <div className="flex flex-row gap-4">
-                  <Link
-                    href={`/dashboard/administration/coaches/${coach.id_rol}`}
-                    className="pt-2"
-                  >
-                    <Eye className="hover:text-blue-500" />
-                  </Link>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        className="rounded-full"
-                      >
-                        <Settings />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent side={"bottom"} align={"end"}>
-                      <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem asChild>
-                        <button className="w-full text-left hover:bg-red-400">
-                          Eliminar <Trash2 />
-                        </button>
-                      </DropdownMenuItem>
-                      {/* <DropdownMenuItem asChild>
-
-									</DropdownMenuItem> */}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </div>
-            ))}
-			</div>
-          </div>
+          <h1 className="text-xl md:text-2xl font-bold">Panel Administración</h1>
         </div>
       </div>
+
+      <div className="flex flex-col md:flex-row w-full gap-4 p-4">
+        <MenuAdmin />
+        <div className="w-full md:w-10/12 flex flex-col items-center border-[1px] border-gray-200 rounded-lg min-h-[60vh] p-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+
+            <div className="flex flex-col items-center">
+              <h2 className="text-lg font-bold mb-2">Rutinas Nivel 1</h2>
+              {level1.map((routine, index) => (
+                <Link
+                  key={routine.id_cat}
+                  href={routine.url_imagen}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="mb-2 w-40">{`Rutina ${String.fromCharCode(65 + index)}`}</Button>
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex flex-col items-center">
+              <h2 className="text-lg font-bold mb-2">Rutinas Nivel 2</h2>
+              {level2.map((routine, index) => (
+                <Link
+                  key={routine.id_cat}
+                  href={routine.url_imagen} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="mb-2 w-40">{`Rutina ${String.fromCharCode(65 + index)}`}</Button>
+                </Link>
+              ))}
+            </div>
+
+
+            <div className="flex flex-col items-center">
+              <h2 className="text-lg font-bold mb-2">Rutinas Nivel 3</h2>
+              {level3.map((routine, index) => (
+                <Link
+                  key={routine.id_cat}
+                  href={routine.url_imagen}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="mb-2 w-40">{`Rutina ${String.fromCharCode(65 + index)}`}</Button>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <hr className="m-10 w-2/4 border-gray-300 border-1" />
+              <div className="flex flex-col items-center mb-20">
+                  <Link href="/dashboard/administration/coaches/create-routine">
+                <button className="bg-black hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg">
+                    Agregar rutina
+                </button>
+                  </Link>
+              </div>
+        </div>
+      </div>
+    </div>
   );
 }

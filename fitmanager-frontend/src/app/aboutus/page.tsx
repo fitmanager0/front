@@ -1,90 +1,127 @@
-import Image from "next/image"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+'use client';
+
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function AboutUsPage() {
-	return (
-		<div className="min-h-screen">
-			{/* Hero Section */}
-			<div className="relative h-[600px] flex items-center justify-center">
-				<Image
-					src="/ImagenSobreNosotros.webp"
-					alt="Gym Equipment"
-					fill
-					className="object-cover brightness-50"
-					priority
-				/>
-				<h1 className="text-4xl md:text-5xl font-bold text-white relative z-10">Sobre Nosotros</h1>
-			</div>
+  const images = [
+    "/gimnasio.jpeg",
+    "/gimnasio2.jpg",
+    "/gimnasio3.jpeg",
+    "/gimnasio4.jpeg",
+    "/gimnasio5.jpeg"
+  ];
 
-			{/* Mission Section */}
-			<section className="container mx-auto px-4 py-16 max-w-3xl text-center">
-				<h2 className="text-3xl font-bold mb-6">Misión</h2>
-				<p className="text-gray-600 mb-8">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-					magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure.
-				</p>
-				<div className="flex justify-center">
-					<Image src="/LogoFitManager.png" alt="Gym Logo" width={100} height={100} className="opacity-80" />
-				</div>
-			</section>
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-			{/* Features Section */}
-			<section className="container mx-auto px-4 py-16">
-				<h2 className="text-3xl font-bold mb-12">¿Qué nos hace diferentes?</h2>
-				<div className=" gap-8 flex flex-col">
-					<Card>
-						<CardContent className="pt-6">
-							<h3 className="text-xl font-semibold mb-4">
-								Planes de membresía flexibles para adaptarse a tu estilo de vida
-							</h3>
-							<p className="text-gray-600 mb-4">
-								Body text for whatever you&#39;d like to say. Add main takeaway points, quotes, anecdotes, or even a very
-								very short story.
-							</p>
-						</CardContent>
-						<CardFooter>
-							<Button variant="outline" className=" bg-slate-100 hover:bg-slate-200">
-								Más información
-							</Button>
-						</CardFooter>
-					</Card>
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
 
-					<Card>
-						<CardContent className="pt-6">
-							<h3 className="text-xl font-semibold mb-4">Acceso 24/7 para que nunca tengas excusas</h3>
-							<p className="text-gray-600 mb-4">
-								Body text for whatever you&#39;d like to say. Add main takeaway points, quotes, anecdotes, or even a very
-								very short story.
-							</p>
-						</CardContent>
-						<CardFooter>
-							<Button variant="outline" className=" bg-slate-100 hover:bg-slate-200">
-								Más información
-							</Button>
-						</CardFooter>
-					</Card>
+    return () => clearInterval(interval);
+  }, [images.length]);
 
-					<Card>
-						<CardContent className="pt-6">
-							<h3 className="text-xl font-semibold mb-4">
-								Entrenamientos personalizados basados en tus metas específicas
-							</h3>
-							<p className="text-gray-600 mb-4">
-								Body text for whatever you&#39;d like to say. Add main takeaway points, quotes, anecdotes, or even a very
-								very short story.
-							</p>
-						</CardContent>
-						<CardFooter>
-							<Button variant="outline" className=" bg-slate-100 hover:bg-slate-200">
-								Más información
-							</Button>
-						</CardFooter>
-					</Card>
-				</div>
-			</section>
-		</div>
-	)
+  return (
+    <div className="min-h-screen bg-white">
+      
+      <div className="relative h-[600px] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/ImagenSobreNosotros.webp"
+          alt="Gym Equipment"
+          fill
+          className="object-cover brightness-50"
+          priority
+        />
+        <motion.div
+          className="flex z-10"
+          initial={{ opacity: 0, y: -150 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 2 }}
+        >
+          <span
+            className="text-6xl md:text-8xl font-extrabold italic text-black pr-2"
+            style={{ WebkitTextStroke: "0.3px white" }}
+          >
+            ¿QUIÉNES
+          </span>
+          <span
+            className="text-6xl md:text-8xl font-extrabold italic text-orange-500 pl-2"
+            style={{ WebkitTextStroke: "0.3px white" }}
+          >
+            SOMOS?
+          </span>
+        </motion.div>
+      </div>
+
+      
+      <section className="container mx-auto px-4 py-8 text-center">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-3xl text-gray-700 mb-4"
+        >
+          Somos una plataforma dedicada a optimizar tu experiencia fitness,<br />
+          conectándote con tus metas de forma efectiva.
+        </motion.p>
+
+        <div className="flex justify-center mb-8">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Image src="/LogoFitManager.png" alt="FitManager Logo" width={120} height={120} />
+          </motion.div>
+        </div>
+
+    
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-5xl text-gray-900 font-extrabold italic mb-4"
+        >
+          ¿Qué es lo que hacemos?
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-2xl text-gray-700 mb-4"
+        >
+          Brindar un acompañamiento integral a cada estudiante, ofreciendo rutinas personalizadas, <br />
+          atención especializada y un seguimiento continuo para garantizar el progreso y <br />
+          el logro de sus objetivos fitness de manera efectiva y sostenible.
+        </motion.p>
+      </section>
+
+    
+      <section className="bg-white py-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-2xl text-center font-extrabold italic text-black mb-6"
+        >
+          A continuación, adjuntamos una galería de imágenes con la maquinaria que podrás disfrutar adquiriendo nuestros servicios.
+        </motion.h2>
+
+        <div className="relative max-w-5xl mx-auto h-[600px] overflow-hidden rounded-2xl shadow-lg">
+          <Image
+            src={images[currentIndex]}
+            alt={`Imagen ${currentIndex + 1}`}
+            fill
+            className="object-cover w-full h-full transition-opacity duration-1000 ease-in-out"
+            priority
+          />
+        </div>
+      </section>
+    </div>
+  );
 }
-

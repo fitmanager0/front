@@ -94,9 +94,12 @@ export default function UpdatePassword() {
       text: "¿Deseas cambiar tu contraseña?",
       confirmButtonText: "Sí, cambiar",
       cancelButtonText: "Cancelar",
+      confirmButtonColor: "black", 
     };
+
     const confirmUpdate = await ToastConditional(messages);
     if (!confirmUpdate) return;
+    
 
     try {
       const response = await putUpdatePassword(user?.id_user, formData);

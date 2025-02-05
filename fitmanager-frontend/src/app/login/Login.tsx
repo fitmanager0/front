@@ -21,9 +21,10 @@ const Login: React.FC = () => {
     setError("");
   };
   const handleGoogleLogin = () => {
-	router.push("http://localhost:3000/auth/google");
+    router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`);
   };
   
+  ////////
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
