@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     router.push(`${process.env.NEXT_PUBLIC_API_URL}/auth/google`);
   };
   
-  //
+  ////////
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
