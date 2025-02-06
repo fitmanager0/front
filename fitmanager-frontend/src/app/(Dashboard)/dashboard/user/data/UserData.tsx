@@ -19,10 +19,12 @@ export default function UserData() {
       const fetchData = async () => {
         const fetchedUser = await getUserProfile(user?.id_user);
         setUserData(fetchedUser);
+        console.log(fetchedUser);
       };
       fetchData();
     }
   }, [user]);
+
 
   return user ? (
     <div className="flex flex-col w-full justify-center items-center mb-2">
