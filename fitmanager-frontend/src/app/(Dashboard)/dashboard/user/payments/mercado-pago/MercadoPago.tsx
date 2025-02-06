@@ -68,7 +68,7 @@ export default function MercadoPago() {
       const userId = decodedToken.id
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/payment/create-preference`, 
+        `${process.env.NEXT_PUBLIC_API_URL}/payment/create-preference`,
        {
           turno: {
             service: plan.title,
