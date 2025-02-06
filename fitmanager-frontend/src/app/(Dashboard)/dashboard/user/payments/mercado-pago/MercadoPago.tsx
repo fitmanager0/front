@@ -63,7 +63,7 @@ export default function MercadoPago() {
         setError('No se encontró un token. El usuario no está autenticado.');
         return;
       }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
       const decodedToken: any = jwtDecode(token)
       const userId = decodedToken.id
 
