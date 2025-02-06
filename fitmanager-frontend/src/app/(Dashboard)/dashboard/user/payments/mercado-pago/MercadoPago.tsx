@@ -63,8 +63,7 @@ export default function MercadoPago() {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:3000/payment/create-preference",
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/payment/create-preference`,
         {
           turno: {
             service: plan.title,
