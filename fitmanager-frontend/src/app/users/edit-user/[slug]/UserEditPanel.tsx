@@ -4,7 +4,7 @@ import { getUserInfo } from "@/helpers/getUserInfo";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidError } from "react-icons/bi";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IUser } from "@/interfaces/IUser";
 import axios from "axios";
 import { Toast } from "@/components/Toast/Toast";
@@ -117,7 +117,6 @@ export default function UserEditPanel({
       );
       Toast.fire({ icon: "success", title: "Cambios realizados con éxito." });
     } catch (error) {
-      console.error(`${error}`);
       Toast.fire({ icon: "error", title: "Error al realizar los cambios." });
     }
   };
