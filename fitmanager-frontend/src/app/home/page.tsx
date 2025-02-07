@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 interface User {
   id_user: string;
   name: string;
-  imgUrl?: string; // imgUrl es opcional
+  imgUrl?: string; 
 }
 
 interface Comment {
