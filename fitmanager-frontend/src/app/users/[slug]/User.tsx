@@ -11,13 +11,14 @@
   import { IoMdPaper } from "react-icons/io";
   import axios from "axios";
   import { IRoutinesUser } from "@/interfaces/IRoutinesUser";
+import { useAuth } from "@/context/AuthContext";
 
   export default function User({ params }: { params: { slug: string } }) {
     const [userData, setUserData] = useState<IUser | null>(null);
     const [healthsheet, setHealthsheet] = useState<IHealthsheet | null>(null);
     const [loading, setLoading] = useState(true);
     const [routine, setRoutine] = useState<IRoutinesUser | null>(null);
-
+    const {user} = useAuth();
     useEffect(() => {
       const { slug } = params;
       const userId = slug;
@@ -132,6 +133,7 @@
                   Rutina <br />no disponible
                 </div>
               )}
+              {user?.id_rol === 1 ? (
               <Link href={`/users/edit-user/${userData.id_user}`}
               className="text-xs text-center text-gray-400 hover:text-blue-500 cursor-pointer">
               <div className="flex flex-col justify-center items-center">
@@ -140,9 +142,17 @@
                   size={22}
                   className="text-gray-400 hover:text-blue-500 cursor-pointer"
                   />
-                  </  div>
+                  </div>
               </Link>
-            </div>
+              ) : (
+                <div className="flex flex-col justify-center items-center">
+                  <div className="text-xs text-center text-gray-400 italic">
+
+                Editar <br/>no disponible
+                  </div>
+                  </div>
+              )}
+              </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
             <div className="flex flex-col">
