@@ -75,7 +75,6 @@ const testimonials = [
 ];
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -203,7 +202,7 @@ export default function Home() {
             ))}
           </div>
         )}
-		
+
           <div className="pt-4">
             <CommentForm onSuccess={fetchComments} />
           </div>
