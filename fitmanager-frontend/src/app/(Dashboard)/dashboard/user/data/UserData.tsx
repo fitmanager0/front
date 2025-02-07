@@ -20,7 +20,6 @@ export default function UserData() {
       const fetchData = async () => {
         const fetchedUser = await getUserProfile(user?.id_user);
         setUserData(fetchedUser);
-        console.log("Los datos de usuario son",fetchedUser);
       };
       fetchData();
     }

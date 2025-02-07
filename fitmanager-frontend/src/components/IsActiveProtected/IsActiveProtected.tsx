@@ -3,21 +3,20 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Toast } from "../Toast/Toast";
-import { useAuth } from "@/context/AuthContext";
 
 const IsActiveProtected = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
     if (user?.isActive === false) {
       router.replace("/dashboard/user");
       Toast.fire({ icon: "error", title: "Debes tener tu cuenta al día para ver las rutinas." });
     } else {
       setIsLoading(false);
     }
-  }, [router, user]);
+  }, [router]);
 
   if (isLoading) {
     return (

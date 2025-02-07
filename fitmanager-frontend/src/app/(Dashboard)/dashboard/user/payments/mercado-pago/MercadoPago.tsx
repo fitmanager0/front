@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { jwtDecode } from "jwt-decode"
 
 // Initialize MercadoPago with your public key
 initMercadoPago('APP_USR-555d9faa-7d27-4cb6-9ea5-326f18f1b89c');
@@ -62,31 +63,37 @@ export default function MercadoPago() {
         setError('No se encontró un token. El usuario no está autenticado.');
         return;
       }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const decodedToken: any = jwtDecode(token)
+      const userId = decodedToken.id
 
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/payment/create-preference`,
-        {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/payment/create-preference`,
+       {
           turno: {
             service: plan.title,
             price: plan.price,
           },
+          userId: userId, // Añadir el ID del usuario a la solicitud
+          userEmail: decodedToken.email, // Añadir el email del usuario si es necesario
         },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.data && response.data.id) {
-        setPreferenceId(response.data.id);
-        setSelectedPlan(plan);
-        console.log("Preferencia creada exitosamente:", response.data);
+        setPreferenceId(response.data.id)
+        setSelectedPlan(plan)
+        console.log("Preferencia creada exitosamente:", response.data)
       } else {
-        throw new Error('La respuesta del servidor no contiene un ID de preferencia válido');
+        throw new Error("La respuesta del servidor no contiene un ID de preferencia válido")
       }
     } catch (error) {
-      console.error("Error al crear la preferencia:", error);
-      setError('Error al crear la preferencia de pago');
+      console.error("Error al crear la preferencia:", error)
+      setError("Error al crear la preferencia de pago")
     }
   };
 
