@@ -24,7 +24,7 @@ export default function UserRoutines() {
       );
       setUserRoutine(response.data);
     } catch {
-      Toast.fire({ icon: "error", title: "Error al obtener la rutina del usuario." });
+      
     }
   };
 
