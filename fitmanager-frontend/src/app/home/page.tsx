@@ -4,7 +4,6 @@ import CoachCard from "@/components/CoachCard/CoachCard";
 import { CommentForm } from "@/components/general/CommentForm";
 import { TestimonialCard } from "@/components/general/TestimonialCard";
 import { coaches } from "@/config/coaches";
-import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +12,7 @@ import { useEffect, useState } from "react";
 interface User {
   id_user: string;
   name: string;
-  imgUrl?: string; // imgUrl es opcional
+  imgUrl?: string; 
 }
 
 interface Comment {
