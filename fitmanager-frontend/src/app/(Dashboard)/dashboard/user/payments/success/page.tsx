@@ -16,7 +16,11 @@ export default function SuccessPaymentStripePage() {
 		if (user) {
 		  const fetchData = async () => {
 			const fetchedUser = await getUserProfile(user?.id_user);
-			localStorage.setItem("user", JSON.stringify(fetchedUser));
+			if (fetchedUser?.isActive === true) {
+				localStorage.setItem("isActive", "true")
+			} else {
+				localStorage.setItem("isActive", "false")
+			}
 		  };
 		  fetchData();
 		}

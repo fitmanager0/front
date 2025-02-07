@@ -9,8 +9,8 @@ const IsActiveProtected = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if (user?.isActive === false) {
+    const isActive = localStorage.getItem("isActive");
+    if (isActive === "false") {
       router.replace("/dashboard/user");
       Toast.fire({ icon: "error", title: "Debes tener tu cuenta al día para ver las rutinas." });
     } else {

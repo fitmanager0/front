@@ -20,6 +20,11 @@ export default function UserData() {
       const fetchData = async () => {
         const fetchedUser = await getUserProfile(user?.id_user);
         setUserData(fetchedUser);
+        if (fetchedUser?.isActive === true) {
+          localStorage.setItem("isActive", "true")
+        } else {
+          localStorage.setItem("isActive", "false")
+        }
       };
       fetchData();
     }
