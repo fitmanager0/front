@@ -23,9 +23,7 @@ export default function UserRoutines() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setUserRoutine(response.data);
-    } catch {
-      
-    }
+    } catch {}
   };
 
   useEffect(() => {
@@ -40,7 +38,7 @@ export default function UserRoutines() {
         console.log(response.data);
         setUserRoutine(response.data);
       } catch {
-        Toast.fire({ icon: "error", title: "No tienes una rutina asignada." });
+       
       }
     };
 
@@ -65,8 +63,7 @@ export default function UserRoutines() {
   const handleRoutineChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRoutine(event.target.value);
   };
-
-  const handleSelectRoutine = async () => {
+  const handleUpdateRoutine = async () => {
     if (!selectedRoutine) {
       alert("Por favor, selecciona una rutina.");
       return;
@@ -75,59 +72,79 @@ export default function UserRoutines() {
       Toast.fire({ icon: "error", title: "Usuario no autenticado." });
       return;
     }
-  
     const selectedRoutineData = routines.find(
       (routine) => routine.id_cat.trim() === String(selectedRoutine).trim()
     );
-  
     if (!selectedRoutineData) {
       Toast.fire({ icon: "error", title: "Rutina no encontrada." });
       return;
     }
-  
     const formData = {
       url_routine: selectedRoutineData.url_imagen,
       id_user: user.id_user,
       id_level: selectedRoutineData.id_level,
     };
-  
-    const token = localStorage.getItem("token");
-  
     try {
-      if (userRoutine) {
-        await axios.put(
-          `${process.env.NEXT_PUBLIC_API_URL}/routines/${userRoutine.id_routine}`,
-          formData, 
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        Toast.fire({ icon: "success", title: "Rutina actualizada con éxito." });
-      } else {
-
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/routines/associate`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        Toast.fire({ icon: "success", title: "Rutina asociada con éxito." });
-      }
-  
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/routines/${userRoutine?.id_routine}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      Toast.fire({ icon: "success", title: "Rutina actualizada con éxito." });
+      // Aquí llamamos a fetchUserRoutine después de actualizar
       fetchUserRoutine();
     } catch {
-        Toast.fire({ icon: "error", title: "Error al guardar la rutina." });
-      }
-      
+      Toast.fire({ icon: "error", title: "Error al actualizar rutina." });
+    }
   };
-  
+
+  const handleSelectRoutine = async () => {
+  if (!selectedRoutine) {
+    alert("Por favor, selecciona una rutina.");
+    return;
+  }
+  if (!user || !user?.id_user) {
+    Toast.fire({ icon: "error", title: "Usuario no autenticado." });
+    return;
+  }
+
+  const selectedRoutineData = routines.find(
+    (routine) => routine.id_cat.trim() === String(selectedRoutine).trim()
+  );
+
+  if (!selectedRoutineData) {
+    Toast.fire({ icon: "error", title: "Rutina no encontrada." });
+    return;
+  }
+
+  const formData = {
+    url_routine: selectedRoutineData.url_imagen,
+    id_user: user.id_user,
+    id_level: selectedRoutineData.id_level,
+  };
+  try {
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/routines/associate`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    Toast.fire({ icon: "success", title: "Rutina asociada con éxito." });
+    // Aquí llamamos a fetchUserRoutine después de asociar la rutina
+    fetchUserRoutine();
+  } catch {
+    Toast.fire({ icon: "error", title: "Error al guardar la rutina." });
+  }
+};
 
   const filteredRoutines = routines.filter(
     (routine) => routine.id_level === selectedLevel
@@ -159,7 +176,7 @@ export default function UserRoutines() {
           );
         })}
       </div>
-      <hr className="m-5 w-2/4 border-gray-100 border-[1px]"/>
+      <hr className="m-5 w-2/4 border-gray-100 border-[1px]" />
 
       {userRoutine?.url_routine && (
         <div>
@@ -175,7 +192,6 @@ export default function UserRoutines() {
           </div>
         </div>
       )}
-
 
       <div className="flex flex-col md:flex-row gap-4 items-center mb-20">
         <select
@@ -207,7 +223,9 @@ export default function UserRoutines() {
           ))}
         </select>
 
-        <Button onClick={handleSelectRoutine}>
+        <Button
+          onClick={userRoutine ? handleUpdateRoutine : handleSelectRoutine}
+        >
           {userRoutine ? "Cambiar rutina" : "Seleccionar rutina"}
         </Button>
       </div>

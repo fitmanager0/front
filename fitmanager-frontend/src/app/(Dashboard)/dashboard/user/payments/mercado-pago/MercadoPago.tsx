@@ -19,7 +19,7 @@ interface Plan {
 const plans: Plan[] = [
   {
     title: "Plan Básico",
-    price: 25000,
+    price: 1,
     benefits: ["Acceso al Gimnasio", "Asistencia Pasiva", "Registro de avances"],
   },
   {
