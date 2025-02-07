@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { IUser } from "@/interfaces/IUser";
 import { getUserProfile } from "@/helpers/getUserProfile";
+import ProfilePictureUploader from "@/components/ClientOnly/ProfilePictureUploader";
 
 export default function UserData() {
   const { user } = useAuth();
@@ -24,14 +25,18 @@ export default function UserData() {
     }
   }, [user]);
 
+  console.log(user?.id_user);
+  
 
   return user ? (
     <div className="flex flex-col w-full justify-center items-center mb-2">
       <div className="w-full flex items-center justify-between p-4 bg-gray-50 border-b-[1px] border-gray-200">
-        <div className="w-1/3"></div>
+        <div className="w-1/3">
+				<ProfilePictureUploader userId={user?.id_user} />
+		</div>
 
         <h1 className="text-xl font-bold text-center w-1/3">
-          {userData?.name}
+			{userData?.name}
         </h1>
 
         <div className="w-1/3 flex flex-col items-end justify-end">
