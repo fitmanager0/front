@@ -1,8 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import CoachCard from "@/components/CoachCard/CoachCard";
+import { CommentForm } from "@/components/general/CommentForm";
 import { TestimonialCard } from "@/components/general/TestimonialCard";
 import { coaches } from "@/config/coaches";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+interface User {
+	id_user: string;
+	name: string;
+	imgUrl?: string; // imgUrl es opcional
+}
+
+interface Comment {
+	id_comment: string;
+	content: string;
+	rating: number;
+	user: User;
+}
 
 const testimonials = [
 	{
@@ -50,6 +68,36 @@ const testimonials = [
 ]
 
 export default function Home() {
+	const [comments, setComments] = useState<Comment[]>([])
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(null)
+
+	const fetchComments = async () => {
+		try {
+			// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`)
+			const token = localStorage.getItem("token");
+			const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/comments`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (!response) throw new Error("Error al cargar comentarios")
+			//const { data } = response.data;
+			console.log(response);
+			setComments(response.data)
+		} catch (err : any) {
+			setError(err.message)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	useEffect(() => {
+		fetchComments()
+	}, [])
+
+	
+	
   return (
     <div className="flex flex-col w-full">
       <div className="relative w-full h-[500px]">
@@ -122,6 +170,32 @@ export default function Home() {
 					  <TestimonialCard key={index} {...testimonial} />
 				  ))}
 			  </div>
+		  </section>
+		  <section className="container mx-auto px-4 py-16">
+			  <h2 className="text-3xl font-bold mb-12 text-center">Opiniones de nuestros clientes</h2>
+
+			
+
+				{loading ? (
+					<div className="text-center">Cargando comentarios...</div>
+				) : error ? (
+					<div className="text-red-500 text-center">{error}</div>
+				) : (
+					<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+						{comments.map((comment) => (
+							<TestimonialCard
+								key={comment.id_comment as string}
+								name={comment.user.name}
+								image={comment.user.imgUrl|| "/placeholder.svg"}
+								comment={comment.content}
+								rating={comment.rating}
+							/>
+						))}
+					</div>
+				)}
+			<div className="pt-4">
+				<CommentForm onSuccess={fetchComments} />
+			</div>
 		  </section>
     </div>
   );
