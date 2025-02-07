@@ -154,7 +154,6 @@ export default function UserEditPanel({
             {[
               { label: "Nombre", value: userData.name },
               { label: "Teléfono", value: userData.phone },
-              { label: "Nivel", value: "A definir" },
               { label: "Email", value: userData.email },
             ].map(({ label, value }, index) => (
               <div key={index} className="grid grid-cols-2 gap-4">
@@ -162,6 +161,18 @@ export default function UserEditPanel({
                 <p>{value}</p>
               </div>
             ))}
+                      <div className="grid grid-cols-2 gap-4">
+              <h1 className="font-bold">Rol:</h1>
+              <select
+                className="border rounded p-1"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <option value="1">Administrador</option>
+                <option value="2">Entrenador</option>
+                <option value="3">Socio</option>
+              </select>
+            </div>
 
             <div className="grid grid-cols-2 gap-4">
               <h1 className="font-bold">Estado:</h1>
@@ -194,18 +205,7 @@ export default function UserEditPanel({
               </div>
             ))}
 
-            <div className="grid grid-cols-2 gap-4">
-              <h1 className="font-bold">Rol:</h1>
-              <select
-                className="border rounded p-1"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-              >
-                <option value="1">Administrador</option>
-                <option value="2">Entrenador</option>
-                <option value="3">Socio</option>
-              </select>
-            </div>
+
           </div>
         </div>
 

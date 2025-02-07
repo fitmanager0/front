@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { getAllRoutines } from "@/helpers/getAllRoutines";
 import React, { useEffect, useState } from "react";
@@ -96,7 +95,7 @@ export default function UserRoutines() {
         }
       );
       Toast.fire({ icon: "success", title: "Rutina actualizada con éxito." });
-      // Aquí llamamos a fetchUserRoutine después de actualizar
+
       fetchUserRoutine();
     } catch {
       Toast.fire({ icon: "error", title: "Error al actualizar rutina." });
@@ -139,7 +138,7 @@ export default function UserRoutines() {
       }
     );
     Toast.fire({ icon: "success", title: "Rutina asociada con éxito." });
-    // Aquí llamamos a fetchUserRoutine después de asociar la rutina
+
     fetchUserRoutine();
   } catch {
     Toast.fire({ icon: "error", title: "Error al guardar la rutina." });
