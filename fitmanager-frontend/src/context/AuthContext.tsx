@@ -67,6 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return null; 
     }
   };
+
   const login = async (credentials: ILogin) => {
     try {
       const response = await axios.post(
@@ -74,10 +75,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         credentials
       );
       const { user, token } = response.data;
+  
       setUser(user);
       setToken(token);
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", token);
+  
+      if (typeof window !== "undefined") {
+        localStorage.setItem("isActive", user.isActive ? "true" : "false");
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", token);
+      }
+  
       setIsAuthenticated(true);
       router.push("/home");
       Toast.fire({ icon: "success", title: "Login exitoso." });
@@ -85,6 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       Toast.fire({ icon: "error", title: "Usuario o contraseña incorrecta" });
     }
   };
+  
 
   const logout = () => {
     setUser(null);
