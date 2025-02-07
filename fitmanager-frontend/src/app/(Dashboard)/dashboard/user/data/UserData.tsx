@@ -95,8 +95,11 @@ export default function UserData() {
                 label: "Teléfono",
                 value: userData?.phone || "No especificado",
               },
-              { label: "Nivel", value: "A definir" },
               { label: "Email", value: userData?.email },
+              {
+                label: "Fecha de Nacimiento",
+                value: userData?.birthdate || "No especificado",
+              },
             ].map(({ label, value }, index) => (
               <div
                 key={index}
@@ -116,10 +119,7 @@ export default function UserData() {
                 label: "Dirección",
                 value: userData?.address || "No especificado",
               },
-              {
-                label: "Fecha de Nacimiento",
-                value: userData?.birthdate || "No especificado",
-              },
+
               {
                 label: "Fecha de Ingreso",
                 value: userData?.entry_date,

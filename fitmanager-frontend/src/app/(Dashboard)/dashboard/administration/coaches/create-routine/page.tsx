@@ -1,8 +1,10 @@
 import MenuAdmin from "@/components/MenuAdmin/MenuAdmin";
 import AddRoutine from "./AddRoutine";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 
 export default function createRoutine() {
   return (
+    <ProtectedRoute>
     <div className="flex flex-col w-full justify-center items-center mt-20">
       <div className="flex flex-col md:flex-row w-full gap-4 p-4">
         <div className="w-full md:w-4/12">
@@ -21,5 +23,6 @@ export default function createRoutine() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
