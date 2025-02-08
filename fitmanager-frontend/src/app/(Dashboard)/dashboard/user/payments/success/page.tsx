@@ -1,12 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-// // // // // // npm install framer-motion
+import { useAuth } from "@/context/AuthContext";
+import { getUserProfile } from "@/helpers/getUserProfile";
+
 export default function SuccessPaymentStripePage() {
+	  const { user } = useAuth();
+
+	  useEffect(() => {
+		if (user) {
+		  const fetchData = async () => {
+			const fetchedUser = await getUserProfile(user?.id_user);
+			if (fetchedUser?.isActive === true) {
+				localStorage.setItem("isActive", "true")
+			} else {
+				localStorage.setItem("isActive", "false")
+			}
+		  };
+		  fetchData();
+		}
+	  }, [user]);
 	return (
 		<div className="w-full mt-40 h-auto flex justify-center">
 			<motion.div

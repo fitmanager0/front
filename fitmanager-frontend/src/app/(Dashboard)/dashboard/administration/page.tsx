@@ -3,8 +3,8 @@ import Administration from "./Administration";
 
 export default function RenderAdministration() {
   return (
-    <ProtectedRoute>
-      < Administration />
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <Administration />
+      </ProtectedRoute>
   );
 }

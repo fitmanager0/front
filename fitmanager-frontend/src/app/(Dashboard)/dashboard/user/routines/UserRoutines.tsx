@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { getAllRoutines } from "@/helpers/getAllRoutines";
 import React, { useEffect, useState } from "react";
@@ -22,11 +21,8 @@ export default function UserRoutines() {
         `${process.env.NEXT_PUBLIC_API_URL}/routines/${user?.id_user}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(response.data);
       setUserRoutine(response.data);
-    } catch (error) {
-      console.error("Error al obtener la rutina del usuario:", error);
-    }
+    } catch {}
   };
 
   useEffect(() => {
@@ -40,8 +36,8 @@ export default function UserRoutines() {
         );
         console.log(response.data);
         setUserRoutine(response.data);
-      } catch (error) {
-        console.error("Error al obtener la rutina del usuario:", error);
+      } catch {
+       
       }
     };
 
@@ -66,8 +62,7 @@ export default function UserRoutines() {
   const handleRoutineChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRoutine(event.target.value);
   };
-
-  const handleSelectRoutine = async () => {
+  const handleUpdateRoutine = async () => {
     if (!selectedRoutine) {
       alert("Por favor, selecciona una rutina.");
       return;
@@ -76,26 +71,21 @@ export default function UserRoutines() {
       Toast.fire({ icon: "error", title: "Usuario no autenticado." });
       return;
     }
-
     const selectedRoutineData = routines.find(
       (routine) => routine.id_cat.trim() === String(selectedRoutine).trim()
     );
-
     if (!selectedRoutineData) {
       Toast.fire({ icon: "error", title: "Rutina no encontrada." });
       return;
     }
-
     const formData = {
       url_routine: selectedRoutineData.url_imagen,
       id_user: user.id_user,
       id_level: selectedRoutineData.id_level,
     };
-
-    const token = localStorage.getItem("token");
     try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/routines/associate`,
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/routines/${userRoutine?.id_routine}`,
         formData,
         {
           headers: {
@@ -104,18 +94,56 @@ export default function UserRoutines() {
           },
         }
       );
-
-      Toast.fire({ icon: "success", title: "Rutina asociada con éxito." });
+      Toast.fire({ icon: "success", title: "Rutina actualizada con éxito." });
 
       fetchUserRoutine();
-    } catch (error: any) {
-      console.error(
-        "Error al asociar la rutina:",
-        error.response?.data || error.message
-      );
-      Toast.fire({ icon: "error", title: "Error al asociar la rutina." });
+    } catch {
+      Toast.fire({ icon: "error", title: "Error al actualizar rutina." });
     }
   };
+
+  const handleSelectRoutine = async () => {
+  if (!selectedRoutine) {
+    alert("Por favor, selecciona una rutina.");
+    return;
+  }
+  if (!user || !user?.id_user) {
+    Toast.fire({ icon: "error", title: "Usuario no autenticado." });
+    return;
+  }
+
+  const selectedRoutineData = routines.find(
+    (routine) => routine.id_cat.trim() === String(selectedRoutine).trim()
+  );
+
+  if (!selectedRoutineData) {
+    Toast.fire({ icon: "error", title: "Rutina no encontrada." });
+    return;
+  }
+
+  const formData = {
+    url_routine: selectedRoutineData.url_imagen,
+    id_user: user.id_user,
+    id_level: selectedRoutineData.id_level,
+  };
+  try {
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/routines/associate`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    Toast.fire({ icon: "success", title: "Rutina asociada con éxito." });
+
+    fetchUserRoutine();
+  } catch {
+    Toast.fire({ icon: "error", title: "Error al guardar la rutina." });
+  }
+};
 
   const filteredRoutines = routines.filter(
     (routine) => routine.id_level === selectedLevel
@@ -147,7 +175,7 @@ export default function UserRoutines() {
           );
         })}
       </div>
-      <hr className="m-5 w-2/4 border-gray-100 border-[1px]"/>
+      <hr className="m-5 w-2/4 border-gray-100 border-[1px]" />
 
       {userRoutine?.url_routine && (
         <div>
@@ -163,7 +191,6 @@ export default function UserRoutines() {
           </div>
         </div>
       )}
-
 
       <div className="flex flex-col md:flex-row gap-4 items-center mb-20">
         <select
@@ -195,7 +222,9 @@ export default function UserRoutines() {
           ))}
         </select>
 
-        <Button onClick={handleSelectRoutine}>
+        <Button
+          onClick={userRoutine ? handleUpdateRoutine : handleSelectRoutine}
+        >
           {userRoutine ? "Cambiar rutina" : "Seleccionar rutina"}
         </Button>
       </div>

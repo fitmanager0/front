@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { IUser } from "@/interfaces/IUser";
 import { getUserProfile } from "@/helpers/getUserProfile";
+import ProfilePictureUploader from "@/components/ClientOnly/ProfilePictureUploader";
 
 export default function UserData() {
   const { user } = useAuth();
@@ -19,20 +20,28 @@ export default function UserData() {
       const fetchData = async () => {
         const fetchedUser = await getUserProfile(user?.id_user);
         setUserData(fetchedUser);
-        console.log(fetchedUser);
+        if (fetchedUser?.isActive === true) {
+          localStorage.setItem("isActive", "true")
+        } else {
+          localStorage.setItem("isActive", "false")
+        }
       };
       fetchData();
     }
   }, [user]);
 
+  console.log(user?.id_user);
+  
 
   return user ? (
     <div className="flex flex-col w-full justify-center items-center mb-2">
       <div className="w-full flex items-center justify-between p-4 bg-gray-50 border-b-[1px] border-gray-200">
-        <div className="w-1/3"></div>
+        <div className="w-1/3">
+				<ProfilePictureUploader userId={user?.id_user} />
+		</div>
 
         <h1 className="text-xl font-bold text-center w-1/3">
-          {userData?.name}
+			{userData?.name}
         </h1>
 
         <div className="w-1/3 flex flex-col items-end justify-end">
@@ -86,8 +95,11 @@ export default function UserData() {
                 label: "Teléfono",
                 value: userData?.phone || "No especificado",
               },
-              { label: "Nivel", value: "A definir" },
               { label: "Email", value: userData?.email },
+              {
+                label: "Fecha de Nacimiento",
+                value: userData?.birthdate || "No especificado",
+              },
             ].map(({ label, value }, index) => (
               <div
                 key={index}
@@ -107,10 +119,7 @@ export default function UserData() {
                 label: "Dirección",
                 value: userData?.address || "No especificado",
               },
-              {
-                label: "Fecha de Nacimiento",
-                value: userData?.birthdate || "No especificado",
-              },
+
               {
                 label: "Fecha de Ingreso",
                 value: userData?.entry_date,

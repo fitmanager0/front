@@ -2,20 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Toast } from "../Toast/Toast";
+import { IUser } from "@/interfaces/IUser";
 
-const IsActiveProtected = ({ children }: { children: React.ReactNode }) => {
+const IsAdmin = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const isActive = localStorage.getItem("isActive");
-    if (isActive === "false") {
+    const storedUser = localStorage.getItem("user");
+    const user: IUser | null = storedUser ? JSON.parse(storedUser) : null;
 
-      router.replace("/dashboard/user");
-      Toast.fire({ icon: "error", title: "Debes tener tu cuenta al día para ver las rutinas." });
+    if (!user || user?.id_rol === 3) {
+      router.push("/home");
+    } else if (user?.id_rol === 2) {
+        router.push("/dashboard/administration/coaches");
     } else {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   }, [router]);
 
@@ -33,4 +35,4 @@ const IsActiveProtected = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-export default IsActiveProtected;
+export default IsAdmin;

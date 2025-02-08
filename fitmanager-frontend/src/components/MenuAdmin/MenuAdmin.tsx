@@ -25,7 +25,7 @@ export default function MenuAdmin() {
               onClick={() => setIsMenuOpen(false)}>
               
                 <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-                  <h1 className="text-base md:text-md">Usuarios</h1>
+                  <h1 className="text-base md:text-md">Administradores</h1>
                 </div>
               </Link>
               <Link href="/dashboard/administration/coaches"
@@ -33,20 +33,6 @@ export default function MenuAdmin() {
               
                 <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
                   <h1 className="text-base md:text-md">Entrenadores</h1>
-                </div>
-              </Link>
-              <Link href="/administration"
-              onClick={() => setIsMenuOpen(false)}>
-              
-                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-                  <h1 className="text-base md:text-md">Administradores</h1>
-                </div>
-              </Link>
-              <Link href="/administration"
-              onClick={() => setIsMenuOpen(false)}>
-              
-                <div className="flex flex-col w-full gap-4 justify-center items-center border-b-[1px] p-4 hover:bg-gray-100 transition duration-300 ease cursor-pointer">
-                  <h1 className="text-base md:text-md">Métricas</h1>
                 </div>
               </Link>
             </div>
