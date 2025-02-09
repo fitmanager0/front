@@ -1,10 +1,11 @@
-"use client"
+"use client";
+import { Toast } from "@/components/Toast/Toast";
 import Image from "next/image";
 import { useState } from "react";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     message: "",
   });
@@ -18,19 +19,38 @@ const Contact: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { fullName, email, message } = formData;
+    const { name, email, message } = formData;
+    console.log(name, email, message);
 
-    if (!fullName || !email || !message) {
+    if (!name || !email || !message) {
       setError("Todos los campos son obligatorios.");
       return;
     }
 
     setError("");
-    console.log("Datos enviados:", formData);
+    console.log("Datos a enviar:", JSON.stringify({ name, email, message }));
 
-    setFormData({ fullName: "", email: "", message: "" });
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/contactus/send`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al enviar el mensaje");
+      }
+      Toast.fire({ icon: "success", title: "Mensaje enviado con éxito." });
+
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      Toast.fire({ icon: "error", title: "Error al enviar el mensaje." });
+    }
   };
 
   return (
@@ -52,23 +72,24 @@ const Contact: React.FC = () => {
       <div className="w-full md:w-1/2 flex items-center justify-center p-4 relative">
         <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-6">
-            Contactenos
+            Contáctenos
           </h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
-                htmlFor="fullName"
+                htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
                 Nombre completo
               </label>
               <input
                 type="text"
-                id="fullName"
-                name="fullName"
+                id="name"
+                name="name"
                 placeholder="Tu nombre completo"
-                value={formData.fullName}
+                value={formData.name}
                 onChange={handleChange}
+                autoComplete="off"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
               />
             </div>
@@ -86,6 +107,7 @@ const Contact: React.FC = () => {
                 placeholder="Correo electrónico"
                 value={formData.email}
                 onChange={handleChange}
+                autoComplete="off"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
               />
             </div>
@@ -102,6 +124,7 @@ const Contact: React.FC = () => {
                 placeholder="Tu mensaje"
                 value={formData.message}
                 onChange={handleChange}
+                autoComplete="off"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
               />
             </div>
@@ -115,16 +138,16 @@ const Contact: React.FC = () => {
           </form>
         </div>
       </div>
-        <div className="absolute top-0 left-0 w-full h-full z-[-1]">
-          <Image
-            src="/img-contact.jpeg"
-            alt="Imagen de contacto"
-            layout="fill"
-            objectFit="cover"
-            priority
-            className="opacity-80"
-          />
-        </div>
+      <div className="absolute top-0 left-0 w-full h-full z-[-1]">
+        <Image
+          src="/img-contact.jpeg"
+          alt="Imagen de contacto"
+          layout="fill"
+          objectFit="cover"
+          priority
+          className="opacity-80"
+        />
+      </div>
     </div>
   );
 };

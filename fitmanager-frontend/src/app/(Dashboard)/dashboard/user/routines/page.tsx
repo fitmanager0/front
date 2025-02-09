@@ -7,8 +7,8 @@ import IsActiveProtected from "@/components/IsActiveProtected/IsActiveProtected"
 
 export default function PaymentsPage() {
   return (
-    <IsActiveProtected>
-      <GoogleProtected>
+    <GoogleProtected>
+      <IsActiveProtected>
         <NotLoggedRedirect>
           <div>
             <div className="flex flex-col md:flex-row mt-20">
@@ -21,7 +21,7 @@ export default function PaymentsPage() {
             </div>
           </div>
         </NotLoggedRedirect>
-      </GoogleProtected>
-    </IsActiveProtected>
+      </IsActiveProtected>
+    </GoogleProtected>
   );
 }
