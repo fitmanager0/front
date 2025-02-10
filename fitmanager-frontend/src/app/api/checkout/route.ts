@@ -3,7 +3,9 @@ import { Stripe } from "stripe";
 
 export async function POST(request: Request) {
 	try {
-		const { priceId } = await request.json();
+		const { priceId, 
+			userId 
+		} = await request.json();
 
 		if (!process.env.STRIPE_SECRET_KEY) {
 			return NextResponse.json(
@@ -25,8 +27,9 @@ export async function POST(request: Request) {
 			mode: "subscription",
 			payment_method_types: ["card"],
 			line_items: [{ price: priceId, quantity: 1 }],
-			success_url: `${process.env.NEXT_PUBLIC_API_URL_FRONT}/dashboard/user/payments/success`,
+			success_url: `${process.env.NEXT_PUBLIC_API_URL_FRONT}/dashboard/user/payments/success?userId=${userId}`,
 			cancel_url: `${process.env.NEXT_PUBLIC_API_URL_FRONT}/dashboard/user/payments/`,
+			metadata: { userId }, // Añadir el ID del usuario al metadata
 		});
 
 		return NextResponse.json({ url: session.url });
