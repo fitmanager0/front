@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { getUserProfile } from "@/helpers/getUserProfile";
+import axios from "axios";
 
 export default function SuccessPaymentStripePage() {
 	  const { user } = useAuth();
@@ -24,7 +25,26 @@ export default function SuccessPaymentStripePage() {
 		  };
 		  fetchData();
 		}
-	  }, [user]);
+		const activateUser = async () => {
+			const token = localStorage.getItem("token"); 
+			const userId = user?.id_user;
+			if (!token || !userId) return;
+
+			try {
+				const response = await axios.post(
+					`${process.env.NEXT_PUBLIC_API_URL}/user/activate/${userId}`,
+					{},
+					{
+						headers: { Authorization: `Bearer ${token}` },
+					}
+				);
+				console.log("Usuario activado:", response.data);
+			} catch (error) {
+				console.error("Error activando usuario", error);
+			}
+		};
+		activateUser();
+		}, [user]);
 	return (
 		<div className="w-full mt-40 h-auto flex justify-center">
 			<motion.div
