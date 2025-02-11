@@ -17,18 +17,16 @@ export default function AboutUsPage() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 3000);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [images.length]);
 
   return (
-    <div className="min-h-screen bg-white">
-      
-      <div className="relative h-[600px] flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen bg-gray-100">
+      {/* Hero Section */}
+      <div className="relative h-[500px] flex items-center justify-center overflow-hidden">
         <Image
           src="/ImagenSobreNosotros.webp"
           alt="Gym Equipment"
@@ -37,89 +35,94 @@ export default function AboutUsPage() {
           priority
         />
         <motion.div
-          className="flex z-10"
-          initial={{ opacity: 0, y: -150 }}
+          className="flex flex-col items-center z-10 text-center"
+          initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 1 }}
         >
-          <span
-            className="text-6xl md:text-8xl font-extrabold italic text-black pr-2"
-            style={{ WebkitTextStroke: "0.3px white" }}
+          <h1 className="text-4xl md:text-5xl font-bold italic text-white drop-shadow-lg tracking-wide">
+            <span className="text-orange-500">¿Quiénes </span>
+            <span className="text-white">Somos?</span>
+          </h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="text-md text-gray-300 mt-4 max-w-2xl"
           >
-            ¿QUIÉNES
-          </span>
-          <span
-            className="text-6xl md:text-8xl font-extrabold italic text-orange-500 pl-2"
-            style={{ WebkitTextStroke: "0.3px white" }}
-          >
-            SOMOS?
-          </span>
+            Una plataforma dedicada a transformar tu experiencia fitness, conectándote con tus metas de manera efectiva.
+          </motion.p>
         </motion.div>
       </div>
 
-      
-      <section className="container mx-auto px-4 py-8 text-center">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="text-3xl text-gray-700 mb-4"
+      {/* About Section */}
+      <section className="container mx-auto px-6 py-12 text-center">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1 }}
+          className="flex justify-center mb-8"
         >
-          Somos una plataforma dedicada a optimizar tu experiencia fitness,<br />
-          conectándote con tus metas de forma efectiva.
-        </motion.p>
+          <Image src="/LogoFitManager.png" alt="FitManager Logo" width={100} height={100} className="drop-shadow-xl" />
+        </motion.div>
 
-        <div className="flex justify-center mb-8">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <Image src="/LogoFitManager.png" alt="FitManager Logo" width={120} height={120} />
-          </motion.div>
-        </div>
-
-    
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-5xl text-gray-900 font-extrabold italic mb-4"
+          className="text-2xl md:text-3xl font-bold text-gray-900 mb-4"
         >
-          ¿Qué es lo que hacemos?
+          Nuestra Misión
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-2xl text-gray-700 mb-4"
+          className="text-md text-gray-700 max-w-3xl mx-auto leading-relaxed"
         >
-          Brindar un acompañamiento integral a cada estudiante, ofreciendo rutinas personalizadas, <br />
-          atención especializada y un seguimiento continuo para garantizar el progreso y <br />
-          el logro de sus objetivos fitness de manera efectiva y sostenible.
+          Proporcionamos un acompañamiento integral con rutinas personalizadas, atención especializada
+          y un seguimiento continuo para garantizar el progreso y el logro de tus objetivos fitness de manera sostenible.
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.7 }}
+          className="bg-white shadow-lg rounded-lg p-6 mt-6 max-w-3xl mx-auto"
+        >
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">¿Qué nos hace diferentes?</h3>
+          <p className="text-md text-gray-700">
+            Nos diferenciamos por nuestro enfoque personalizado, combinando tecnología avanzada con asesoramiento humano.
+            Nuestra plataforma adapta las rutinas según tus progresos y necesidades, asegurando resultados óptimos.
+          </p>
+        </motion.div>
       </section>
 
-    
-      <section className="bg-white py-10">
+      {/* Gallery Section */}
+      <section className="bg-gray-50 py-14">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-2xl text-center font-extrabold italic text-black mb-6"
+          className="text-2xl md:text-3xl text-center font-bold text-gray-900 mb-8"
         >
-          A continuación, adjuntamos una galería de imágenes con la maquinaria que podrás disfrutar adquiriendo nuestros servicios.
+          Explora nuestra galería de equipos
         </motion.h2>
 
-        <div className="relative max-w-5xl mx-auto h-[600px] overflow-hidden rounded-2xl shadow-lg">
-          <Image
-            src={images[currentIndex]}
-            alt={`Imagen ${currentIndex + 1}`}
-            fill
-            className="object-cover w-full h-full transition-opacity duration-1000 ease-in-out"
-            priority
-          />
+        <div className="relative max-w-3xl mx-auto h-[400px] overflow-hidden rounded-2xl shadow-xl">
+          {images.map((image, index) => (
+            <Image
+              key={index}
+              src={image}
+              alt={`Imagen ${index + 1}`}
+              fill
+              className={`object-cover transition-opacity duration-1000 ease-in-out ${
+                currentIndex === index ? "opacity-100" : "opacity-0"
+              }`}
+              priority
+            />
+          ))}
         </div>
       </section>
     </div>
