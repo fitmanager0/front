@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased mt-16`}
       >
-        <script src="//code.tidio.co/cxvaszu653p8bos0yalrxoijistrzneq.js" async></script>
+        <script src="//code.tidio.co/yqa9hc8bhj10rsdjpvljsjjjqr08gjni.js" async></script>
         <AuthProvider>
           <Navbar />
           <div className="min-h-[100vh]">
