@@ -19,7 +19,7 @@ const LoggedRedirect = ({ children }: { children: React.ReactNode }) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
           <p className="text-gray-600 font-medium">Cargando...</p>

@@ -2,7 +2,6 @@
   import { getUserInfo } from "@/helpers/getUserInfo";
   import Link from "next/link";
   import { IoIosArrowBack } from "react-icons/io";
-  import { BiSolidError } from "react-icons/bi";
   import { useEffect, useState } from "react";
   import { IUser } from "@/interfaces/IUser";
   import { getHealthsheetById } from "@/helpers/getHealthsheetById";
@@ -44,7 +43,6 @@ import Image from "next/image";
             `${process.env.NEXT_PUBLIC_API_URL}/routines/${userId}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          console.log(response.data);
           setRoutine(response.data);
         } catch {
           setRoutine(null);
@@ -218,21 +216,12 @@ import Image from "next/image";
       </div>
     ) : (
       <div>
-        <div className="flex flex-col w-full justify-center items-center mt-24"></div>
-        <div className="flex w-10/12 justify-start items-start ml-10">
-          <Link
-            className="border-[1px] p-1 border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300 ease"
-            href="/dashboard/administration"
-          >
-            <IoIosArrowBack size={25} />
-          </Link>
+      <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+          <p className="text-gray-600 font-medium">Cargando...</p>
         </div>
-        <div className="flex w-4/12 flex-col border-[1px] justify-center items-center mx-auto border-gray-200 rounded-lg mb-10 shadow-md mt-4">
-          <div className="flex p-4 font-bold">
-            <BiSolidError size={20} />
-            <h1 className="ml-2">Usuario no encontrado</h1>
-          </div>
-        </div>
+      </div>
       </div>
     );
   }

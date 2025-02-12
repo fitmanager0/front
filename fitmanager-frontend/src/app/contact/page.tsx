@@ -22,7 +22,6 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { name, email, message } = formData;
-    console.log(name, email, message);
 
     if (!name || !email || !message) {
       setError("Todos los campos son obligatorios.");
@@ -30,7 +29,6 @@ const Contact: React.FC = () => {
     }
 
     setError("");
-    console.log("Datos a enviar:", JSON.stringify({ name, email, message }));
 
     try {
       const response = await fetch(

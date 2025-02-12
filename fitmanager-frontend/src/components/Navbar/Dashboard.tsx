@@ -50,12 +50,12 @@ export default function Dashboard() {
           onClick={toggleMenu}
         >
           {user.imgUrl ? (
-            <div className="w-[45px] h-[45px] rounded-full overflow-hidden border-2 border-gray-300">
+            <div className="w-[42px] h-[42px] rounded-full overflow-hidden border-2 border-gray-300">
             <Image
               src={user.imgUrl}
               alt="User Image"
-              width={45}
-              height={45}
+              width={42}
+              height={42}
               className="object-cover w-full h-full"
             />
           </div>
