@@ -10,14 +10,18 @@ interface ProfilePictureUploaderProps {
 const ProfilePictureUploader: React.FC<ProfilePictureUploaderProps> = ({ userId }) => {
 	const [image, setImage] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
-    const {setUser} = useAuth();
+    const { user, setUser} = useAuth();
 	useEffect(() => {
-		// Cargar la imagen guardada en localStorage (puedes mejorar esto con un estado global)
-		const storedImage = localStorage.getItem(`profile_picture_${userId}`);
-		if (storedImage) {
-			setImage(storedImage);
+		if (user?.imgUrl) {
+			setImage(user.imgUrl);
+		} else {
+			const storedUser = localStorage.getItem("user");
+			if (storedUser) {
+				const parsedUser = JSON.parse(storedUser);
+				setImage(parsedUser.imgUrl || null);
+			}
 		}
-	}, [userId]);
+	}, [user]);
 
 	const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
@@ -28,7 +32,6 @@ const ProfilePictureUploader: React.FC<ProfilePictureUploaderProps> = ({ userId 
 			const response = await uploadProfilePicture(userId, file);
 			if (response.imageUrl) {
 				setImage(response.imageUrl);
-				localStorage.setItem(`profile_picture_${userId}`, response.imageUrl); // Guardar en localStorage
 			}
 			const storedUser = localStorage.getItem("user");
 				if (storedUser) {
