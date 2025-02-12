@@ -91,8 +91,6 @@ export default function Home() {
         }
       );
       if (!response) throw new Error("Error al cargar comentarios");
-      //const { data } = response.data;
-      console.log(response);
       setComments(response.data);
     } catch (err: any) {
       setError(err.message);

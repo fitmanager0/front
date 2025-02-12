@@ -34,7 +34,6 @@ export default function UserRoutines() {
           `${process.env.NEXT_PUBLIC_API_URL}/routines/${user?.id_user}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log(response.data);
         setUserRoutine(response.data);
       } catch {
        
