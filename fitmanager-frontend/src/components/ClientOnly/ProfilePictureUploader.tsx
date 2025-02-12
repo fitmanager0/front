@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { uploadProfilePicture } from "@/helpers/postPhoto";
+import { useAuth } from "@/context/AuthContext";
 
 interface ProfilePictureUploaderProps {
 	userId: string;
@@ -9,7 +10,7 @@ interface ProfilePictureUploaderProps {
 const ProfilePictureUploader: React.FC<ProfilePictureUploaderProps> = ({ userId }) => {
 	const [image, setImage] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
-
+    const {setUser} = useAuth();
 	useEffect(() => {
 		// Cargar la imagen guardada en localStorage (puedes mejorar esto con un estado global)
 		const storedImage = localStorage.getItem(`profile_picture_${userId}`);
@@ -29,6 +30,14 @@ const ProfilePictureUploader: React.FC<ProfilePictureUploaderProps> = ({ userId 
 				setImage(response.imageUrl);
 				localStorage.setItem(`profile_picture_${userId}`, response.imageUrl); // Guardar en localStorage
 			}
+			const storedUser = localStorage.getItem("user");
+				if (storedUser) {
+					const user = JSON.parse(storedUser);
+					user.imgUrl = response.imageUrl; 
+
+					localStorage.setItem("user", JSON.stringify(user));
+					setUser(user);
+				}
 		} catch (error) {
 			console.error("Error al subir la imagen:", error);
 		}
