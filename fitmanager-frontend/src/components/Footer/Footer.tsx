@@ -23,10 +23,10 @@ export default function Footer() {
           <div className="flex flex-col items-center sm:items-center">
             <h1 className="font-bold mt-4 mb-6 text-lg">Enlaces Rápidos</h1>
             <div className="flex flex-col gap-2">
-              <Link className="hover:text-gray-800 hover:ml-1 transition duration-700 ease-in" href="/home">Inicio</Link>
-              <Link className="hover:text-gray-800 hover:ml-1 transition duration-700 ease-in" href="/planes">Planes</Link>
-              <Link className="hover:text-gray-800 hover:ml-1 transition duration-700 ease-in" href="/sobre-nosotros">Sobre Nosotros</Link>
-              <Link className="hover:text-gray-800 hover:ml-1 transition duration-700 ease-in" href="/contacto">Contacto</Link>
+              <Link className="hover:text-blue-600 hover:ml-1 transition duration-200 ease-in" href="/home">Inicio</Link>
+              <Link className="hover:text-blue-600 hover:ml-1 transition duration-200 ease-in" href="/plans">Planes</Link>
+              <Link className="hover:text-blue-600 hover:ml-1 transition duration-200 ease-in" href="/aboutus">Sobre Nosotros</Link>
+              <Link className="hover:text-blue-600 hover:ml-1 transition duration-200 ease-in" href="/contact">Contacto</Link>
             </div>
           </div>
 
