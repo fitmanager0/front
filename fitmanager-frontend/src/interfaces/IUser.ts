@@ -12,4 +12,5 @@ export interface IUser {
     isActive: boolean;
     id_rol: number;
     entry_date: Date;
+    imgUrl: string;
   }

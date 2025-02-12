@@ -52,7 +52,7 @@ export default function MercadoPago() {
 
   useEffect(() => {
     if (preferenceId) {
-      console.log("Preference ID generado:", preferenceId);
+      
     }
   }, [preferenceId]);
 
@@ -87,7 +87,7 @@ export default function MercadoPago() {
       if (response.data && response.data.id) {
         setPreferenceId(response.data.id)
         setSelectedPlan(plan)
-        console.log("Preferencia creada exitosamente:", response.data)
+        
       } else {
         throw new Error("La respuesta del servidor no contiene un ID de preferencia válido")
       }

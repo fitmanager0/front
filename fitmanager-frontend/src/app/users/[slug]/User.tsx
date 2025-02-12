@@ -2,7 +2,6 @@
   import { getUserInfo } from "@/helpers/getUserInfo";
   import Link from "next/link";
   import { IoIosArrowBack } from "react-icons/io";
-  import { BiSolidError } from "react-icons/bi";
   import { useEffect, useState } from "react";
   import { IUser } from "@/interfaces/IUser";
   import { getHealthsheetById } from "@/helpers/getHealthsheetById";
@@ -12,6 +11,7 @@
   import axios from "axios";
   import { IRoutinesUser } from "@/interfaces/IRoutinesUser";
 import { useAuth } from "@/context/AuthContext";
+import Image from "next/image";
 
   export default function User({ params }: { params: { slug: string } }) {
     const [userData, setUserData] = useState<IUser | null>(null);
@@ -27,6 +27,7 @@ import { useAuth } from "@/context/AuthContext";
       const fetchUser = async () => {
         const fetchedUser = await getUserInfo(userId);
         setUserData(fetchedUser);
+
       };
       const fetchHealthsheet = async () => {
         try {
@@ -42,7 +43,6 @@ import { useAuth } from "@/context/AuthContext";
             `${process.env.NEXT_PUBLIC_API_URL}/routines/${userId}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          console.log(response.data);
           setRoutine(response.data);
         } catch {
           setRoutine(null);
@@ -82,20 +82,27 @@ import { useAuth } from "@/context/AuthContext";
               <IoIosArrowBack size={25} />
             </Link>
           </div>
-          <div className="flex justify-center items-center w-full">
-            <h1 className="text-2xl font-bold mb-6">Información del Usuario</h1>
-          </div>
         </div>
+        {userData.imgUrl ? (
+          <div className="flex justify-center items-center w-full mt-6">
+            <Image src={userData.imgUrl} alt="User Image" width={100} height={100} 
+            className="w-32 h-32 mb-8 ml-4 rounded-full" />
+          </div>
+        ) : (
+          <div className="w-32 h-32 mb-10 ml-4 flex items-center justify-center bg-gray-200 rounded-full border-2 border-gray-300">
+          <span className="text-gray-600">Sin foto</span>
+        </div>
+        )}
 
         <div className="w-10/12 flex-col border-[1px] border-gray-200 rounded-lg mb-10 shadow-md">
           <div className="w-full flex items-center justify-between p-4 bg-gray-50 border-b-[1px] border-gray-200">
             <div className="w-1/3"></div>
 
-            <h1 className="text-xl font-bold text-center w-1/3">
+            <h1 className="text-xl font-bold text-center w-1/3 md:mr-20">
               {userData.name}
             </h1>
 
-            <div className="w-3/12 flex justify-between items-center">
+            <div className="w-3/12 flex flex-col gap-3 md:flex-row justify-between items-center">
               {healthsheet?.urlSheet &&
               typeof healthsheet.urlSheet === "string" ? (
                 <Link
@@ -209,21 +216,12 @@ import { useAuth } from "@/context/AuthContext";
       </div>
     ) : (
       <div>
-        <div className="flex flex-col w-full justify-center items-center mt-24"></div>
-        <div className="flex w-10/12 justify-start items-start ml-10">
-          <Link
-            className="border-[1px] p-1 border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300 ease"
-            href="/dashboard/administration"
-          >
-            <IoIosArrowBack size={25} />
-          </Link>
+      <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+          <p className="text-gray-600 font-medium">Cargando...</p>
         </div>
-        <div className="flex w-4/12 flex-col border-[1px] justify-center items-center mx-auto border-gray-200 rounded-lg mb-10 shadow-md mt-4">
-          <div className="flex p-4 font-bold">
-            <BiSolidError size={20} />
-            <h1 className="ml-2">Usuario no encontrado</h1>
-          </div>
-        </div>
+      </div>
       </div>
     );
   }

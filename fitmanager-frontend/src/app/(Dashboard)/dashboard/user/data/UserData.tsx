@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { BiSolidError, BiEdit } from "react-icons/bi";
+import { BiEdit } from "react-icons/bi";
 import { TiKeyOutline } from "react-icons/ti";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
@@ -10,29 +10,34 @@ import ProfilePictureUploader from "@/components/ClientOnly/ProfilePictureUpload
 
 export default function UserData() {
   const { user } = useAuth();
-  const [userData, setUserData] = useState<IUser | null>(null);
+  const [userData, setUserData] = useState<IUser | null>(user || null);
   const [isGoogleUser, setIsGoogleUser] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     if (user?.password === "") {
       setIsGoogleUser(true);
     }
     if (user) {
       const fetchData = async () => {
+        setLoading(true);
         const fetchedUser = await getUserProfile(user?.id_user);
         setUserData(fetchedUser);
-        if (fetchedUser?.isActive === true) {
-          localStorage.setItem("isActive", "true")
-        } else {
-          localStorage.setItem("isActive", "false")
-        }
+        localStorage.setItem("isActive", fetchedUser?.isActive ? "true" : "false");
+        setLoading(false);
       };
       fetchData();
+    } else {
+      setLoading(false);
     }
   }, [user]);
-
-  console.log(user?.id_user);
-  
-
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+      <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+      <p className="text-gray-600 font-medium">Cargando...</p>
+    </div>
+  )
+} 
   return user ? (
     <div className="flex flex-col w-full justify-center items-center mb-2">
       <div className="w-full flex items-center justify-between p-4 bg-gray-50 border-b-[1px] border-gray-200">
@@ -140,13 +145,11 @@ export default function UserData() {
       </div>
     </div>
   ) : (
-    <div>
-      <div className="flex w-4/12 flex-col border-[1px] justify-center items-center mx-auto border-gray-200 rounded-lg mb-10 shadow-md mt-4">
-        <div className="flex p-4 font-bold">
-          <BiSolidError size={20} />
-          <h1 className="ml-2">Usuario no encontrado</h1>
-        </div>
-      </div>
+    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+      <p className="text-gray-600 font-medium">Cargando...</p>
     </div>
+  </div>
   );
 }
